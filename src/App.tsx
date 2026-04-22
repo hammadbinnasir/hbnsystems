@@ -341,25 +341,30 @@ const ContactForm = () => {
     e.preventDefault();
     setStatus('loading');
     
-    const form = e.currentTarget;
-    const data = new FormData(form);
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message')
+    };
     
     try {
-      const response = await fetch("https://formspree.io/f/xpwzjyqb", {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        body: data,
         headers: {
-          'Accept': 'application/json'
-        }
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
       });
       
       if (response.ok) {
         setStatus('success');
-        form.reset();
+        e.currentTarget.reset();
       } else {
         setStatus('error');
       }
     } catch (error) {
+      console.error("Submission error:", error);
       setStatus('error');
     }
   };
