@@ -343,7 +343,8 @@ const ContactForm = () => {
     setStatus('loading');
     setErrorDetails('');
     
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     const data = {
       name: formData.get('name'),
       email: formData.get('email'),
@@ -361,7 +362,7 @@ const ContactForm = () => {
       
       if (response.ok) {
         setStatus('success');
-        e.currentTarget.reset();
+        form.reset();
       } else {
         const errText = await response.text().catch(() => 'No details');
         setErrorDetails(`${response.status}: ${errText.substring(0, 50)}`);
