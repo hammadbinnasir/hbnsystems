@@ -336,10 +336,12 @@ const Portfolio = () => {
 
 const ContactForm = () => {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorDetails, setErrorDetails] = useState<string>('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('loading');
+    setErrorDetails('');
     
     const formData = new FormData(e.currentTarget);
     const data = {
@@ -361,10 +363,12 @@ const ContactForm = () => {
         setStatus('success');
         e.currentTarget.reset();
       } else {
+        const errText = await response.text().catch(() => 'No details');
+        setErrorDetails(`${response.status}: ${errText.substring(0, 50)}`);
         setStatus('error');
       }
-    } catch (error) {
-      console.error("Submission error:", error);
+    } catch (error: any) {
+      setErrorDetails(error.message || 'Network error');
       setStatus('error');
     }
   };
@@ -464,7 +468,7 @@ const ContactForm = () => {
             </button>
             {status === 'error' && (
               <p className="text-red-500 text-xs font-bold text-center mt-2">
-                Something went wrong. Please try again or email us directly.
+                Something went wrong ({errorDetails}). Please try again or email us directly.
               </p>
             )}
           </form>
