@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Cpu, 
@@ -15,157 +15,455 @@ import {
   ChevronRight,
   CheckCircle2,
   Loader2,
-  ShieldCheck
+  ShieldCheck,
+  Menu,
+  X,
+  Server,
+  Activity,
+  Play,
+  RefreshCw,
+  Code2
 } from "lucide-react";
 
+// ==========================================
+// 1. Brand Logo & Navigation
+// ==========================================
 const Logo = () => (
-  <div className="flex items-center gap-3 group cursor-pointer">
+  <div className="flex items-center gap-3.5 group cursor-pointer">
     <div className="relative flex items-center justify-center">
-      <div className="w-10 h-10 bg-text-main rounded-xl flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:rounded-[1.25rem] group-hover:bg-brand-primary shadow-2xl shadow-text-main/10">
+      {/* Outer spinning hexagon border */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-xl blur-md opacity-40 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
+      <div className="relative w-11 h-11 bg-slate-900 border border-slate-700/80 rounded-xl flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:rounded-2xl group-hover:border-brand-primary shadow-2xl">
         <svg 
           viewBox="0 0 24 24" 
           fill="none" 
-          className="w-6 h-6 text-white transform transition-transform duration-500 group-hover:scale-110"
+          className="w-6 h-6 text-brand-primary transform transition-all duration-700 group-hover:scale-110 group-hover:text-brand-accent"
           stroke="currentColor" 
           strokeWidth="2.5" 
           strokeLinecap="round" 
           strokeLinejoin="round"
         >
           <path d="M12 3l9 4.5v9L12 21l-9-4.5v-9L12 3z" />
-          <path d="M12 12l9-4.5" />
-          <path d="M12 12v9" />
-          <path d="M12 12L3 7.5" />
+          <path d="M12 12l9-4.5" className="opacity-70 group-hover:opacity-100 transition-opacity" />
+          <path d="M12 12v9" className="opacity-70 group-hover:opacity-100 transition-opacity" />
+          <path d="M12 12L3 7.5" className="opacity-70 group-hover:opacity-100 transition-opacity" />
         </svg>
+        {/* Glow overlay inside logo */}
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
-      <div className="absolute -top-1 -right-1 w-4 h-4 bg-brand-primary rounded-full border-2 border-white scale-0 group-hover:scale-100 transition-transform duration-300 delay-100 shadow-lg" />
     </div>
     <div className="flex flex-col">
-      <span className="font-black text-xl tracking-[-0.03em] text-text-main leading-none">
-        HBN <span className="text-brand-primary">SYSTEMS</span>
+      <span className="font-display font-extrabold text-xl tracking-tight text-white leading-none">
+        HBN<span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-primary to-brand-accent ml-1.5 font-black">SYSTEMS</span>
       </span>
-      <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-text-muted mt-1 opacity-80">
-        Engineering Excellence
+      <span className="text-[9px] font-mono font-bold uppercase tracking-[0.35em] text-brand-accent/80 mt-1">
+        ENGINEERING STUDIO
       </span>
     </div>
   </div>
 );
 
-const Navbar = () => (
-  <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-border-light">
-    <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
-      <Logo />
-      <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-text-muted">
-        <a href="#expertise" className="hover:text-brand-primary transition-colors">Expertise</a>
-        <a href="#philosophy" className="hover:text-brand-primary transition-colors">Philosophy</a>
-        <a href="#portfolio" className="hover:text-brand-primary transition-colors">Portfolio</a>
-        <a href="#contact" className="btn-primary py-1.5 px-4 text-sm">Get Started</a>
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+        scrolled 
+          ? "bg-slate-950/80 backdrop-blur-xl border-slate-900 py-3.5 shadow-2xl" 
+          : "bg-transparent border-transparent py-5"
+      }`}>
+        <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+          <Logo />
+          
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-text-muted">
+            <a href="#expertise" className="hover:text-white transition-colors duration-300 relative py-1 group">
+              Expertise
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-primary group-hover:w-full transition-all duration-300" />
+            </a>
+            <a href="#philosophy" className="hover:text-white transition-colors duration-300 relative py-1 group">
+              Methodology
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-primary group-hover:w-full transition-all duration-300" />
+            </a>
+            <a href="#portfolio" className="hover:text-white transition-colors duration-300 relative py-1 group">
+              Selected Works
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-primary group-hover:w-full transition-all duration-300" />
+            </a>
+            <a href="#contact" className="btn-secondary-sm px-5 py-2.5 rounded-xl border-brand-primary/20 hover:border-brand-primary/50 text-white font-bold bg-slate-950/40">
+              Get Started <ArrowRight className="w-3.5 h-3.5 ml-1 text-brand-accent group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+
+          {/* Mobile Navigation Toggle */}
+          <button 
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 text-slate-400 hover:text-white transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Drawer Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 top-[70px] z-40 md:hidden bg-slate-950/95 backdrop-blur-2xl border-b border-slate-900 px-6 py-8 flex flex-col gap-6"
+          >
+            <a 
+              href="#expertise" 
+              onClick={() => setIsOpen(false)}
+              className="text-2xl font-bold text-slate-100 hover:text-brand-primary transition-colors py-2 border-b border-slate-900"
+            >
+              Expertise
+            </a>
+            <a 
+              href="#philosophy" 
+              onClick={() => setIsOpen(false)}
+              className="text-2xl font-bold text-slate-100 hover:text-brand-primary transition-colors py-2 border-b border-slate-900"
+            >
+              Methodology
+            </a>
+            <a 
+              href="#portfolio" 
+              onClick={() => setIsOpen(false)}
+              className="text-2xl font-bold text-slate-100 hover:text-brand-primary transition-colors py-2 border-b border-slate-900"
+            >
+              Selected Works
+            </a>
+            <a 
+              href="#contact" 
+              onClick={() => setIsOpen(false)}
+              className="btn-primary py-4 text-center mt-4 w-full"
+            >
+              Get Started <ArrowRight className="w-5 h-5" />
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
+
+// ==========================================
+// 2. Hero Section & System Metrics Dashboard
+// ==========================================
+const Hero = () => {
+  // Live Dashboard State
+  const [cpuHistory, setCpuHistory] = useState([42, 45, 48, 52, 44, 49, 53, 50, 48, 52]);
+  const [activeThreads, setActiveThreads] = useState(14);
+  const [sysLog, setSysLog] = useState<string[]>([
+    "INIT: Core engines loaded.",
+    "SYNC: Router mapped to Gateway-01."
+  ]);
+
+  // Simulate telemetry changes
+  useEffect(() => {
+    const telemetryInterval = setInterval(() => {
+      setCpuHistory(prev => {
+        const lastVal = prev[prev.length - 1];
+        const change = Math.floor(Math.random() * 21) - 10; // -10 to +10
+        const newVal = Math.max(15, Math.min(85, lastVal + change));
+        return [...prev.slice(1), newVal];
+      });
+      
+      setActiveThreads(prev => {
+        const change = Math.random() > 0.5 ? 1 : -1;
+        return Math.max(8, Math.min(22, prev + change));
+      });
+    }, 1500);
+
+    const logList = [
+      "AI: Vector store query compiled (1.2ms).",
+      "PIPELINE: Node dispatch trigger executed.",
+      "IOT: Environment packet stored successfully.",
+      "SEC: Security handshake verified [SHA256].",
+      "API: Gateway latency stabilized at 12ms.",
+      "AUTO: Webhook queue flushed: 0 items.",
+      "DB: PostgreSQL cluster auto-optimized."
+    ];
+
+    const logInterval = setInterval(() => {
+      const randomLog = logList[Math.floor(Math.random() * logList.length)];
+      const now = new Date();
+      const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+      setSysLog(prev => [`[${timeStr}] ${randomLog}`, prev[0]]);
+    }, 4000);
+
+    return () => {
+      clearInterval(telemetryInterval);
+      clearInterval(logInterval);
+    };
+  }, []);
+
+  // CPU Graph Coordinates
+  const chartWidth = 240;
+  const chartHeight = 60;
+  const sparklinePoints = cpuHistory
+    .map((val, idx) => {
+      const x = (idx / (cpuHistory.length - 1)) * chartWidth;
+      const y = chartHeight - (val / 100) * chartHeight;
+      return `${x},${y}`;
+    })
+    .join(" ");
+
+  return (
+    <section className="relative pt-44 pb-36 overflow-hidden dot-grid">
+      {/* Ambient background glows */}
+      <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-brand-primary/10 rounded-full blur-[150px] pointer-events-none animate-cyber-pulse" />
+      <div className="absolute bottom-[0%] right-[-10%] w-[500px] h-[500px] bg-brand-purple/10 rounded-full blur-[130px] pointer-events-none" />
+
+      <div className="section-container grid lg:grid-cols-12 gap-16 items-center">
+        {/* Left Side: Copy */}
+        <div className="lg:col-span-7 text-left">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Styled Badge */}
+            <div className="inline-flex items-center gap-2.5 px-4.5 py-2.5 mb-8 text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-accent bg-brand-accent/5 border border-brand-accent/20 rounded-full">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-emerald opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-emerald"></span>
+              </span>
+              Next-Gen Autonomous Systems
+            </div>
+
+            <h1 className="text-5xl sm:text-7xl font-extrabold text-white tracking-tight leading-[1.05] mb-8 font-display">
+              Architecting the <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-accent to-brand-emerald font-black">
+                Autonomous
+              </span> Future.
+            </h1>
+
+            <p className="text-lg sm:text-xl text-text-muted max-w-2xl mb-12 leading-relaxed font-medium">
+              We design and engineer high-performance AI engines, scalable workflow automations, 
+              and state-of-the-art IoT infrastructure to accelerate modern enterprise systems.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center gap-5">
+              <a href="#expertise" className="btn-primary w-full sm:w-auto shadow-2xl shadow-brand-primary/10 group">
+                Explore Systems <ArrowRight className="w-5 h-5 ml-1 text-white group-hover:translate-x-1.5 transition-transform" />
+              </a>
+              <a href="#philosophy" className="btn-secondary w-full sm:w-auto bg-slate-950/20">
+                The Methodology
+              </a>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Right Side: Live Interactive Dashboard Widget */}
+        <div className="lg:col-span-5 w-full">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="glass-panel p-6 border-slate-800/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] relative overflow-hidden"
+          >
+            {/* Terminal Window Top Bar */}
+            <div className="flex items-center justify-between pb-4 mb-5 border-b border-slate-800/60 font-mono text-[11px] text-slate-500">
+              <div className="flex items-center gap-1.5">
+                <span className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/30" />
+                <span className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/30" />
+                <span className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/30" />
+              </div>
+              <span className="flex items-center gap-1.5 text-slate-400 select-none">
+                <Activity className="w-3.5 h-3.5 text-brand-accent animate-pulse" /> sys_telemetry.sh
+              </span>
+            </div>
+
+            {/* Simulated Live Gauges */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="bg-slate-950/50 rounded-xl p-4 border border-slate-800/40">
+                <span className="block text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider mb-1">CPU LOAD</span>
+                <span className="text-3xl font-mono font-bold text-white tracking-tight">
+                  {cpuHistory[cpuHistory.length - 1]}%
+                </span>
+                <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden mt-2.5">
+                  <div 
+                    className="bg-gradient-to-r from-brand-primary to-brand-accent h-full transition-all duration-1000"
+                    style={{ width: `${cpuHistory[cpuHistory.length - 1]}%` }}
+                  />
+                </div>
+              </div>
+
+              <div className="bg-slate-950/50 rounded-xl p-4 border border-slate-800/40">
+                <span className="block text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider mb-1">ACTIVE PROCESSES</span>
+                <span className="text-3xl font-mono font-bold text-brand-emerald tracking-tight">
+                  {activeThreads} <span className="text-[10px] text-slate-500">threads</span>
+                </span>
+                <div className="flex items-center gap-1 mt-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-emerald animate-ping" />
+                  <span className="text-[9px] font-mono text-slate-500">Auto-Scaling Operational</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Sparkline Graphic */}
+            <div className="bg-slate-950/60 rounded-xl p-4 border border-slate-800/40 mb-6">
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">REALTIME CPU HISTOGRAM</span>
+                <span className="text-[9px] font-mono text-slate-500">SAMPLE INTERVAL 1.5s</span>
+              </div>
+              <div className="relative h-[65px] flex items-end">
+                <svg className="w-full h-full" viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="none">
+                  {/* Grid Lines */}
+                  <line x1="0" y1="20" x2={chartWidth} y2="20" stroke="rgba(51, 65, 85, 0.2)" strokeWidth="1" strokeDasharray="3,3" />
+                  <line x1="0" y1="40" x2={chartWidth} y2="40" stroke="rgba(51, 65, 85, 0.2)" strokeWidth="1" strokeDasharray="3,3" />
+                  
+                  {/* Fill Area Gradient */}
+                  <defs>
+                    <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.25" />
+                      <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.0" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Shaded Area */}
+                  <path 
+                    d={`M 0,${chartHeight} L ${sparklinePoints} L ${chartWidth},${chartHeight} Z`}
+                    fill="url(#chartGlow)"
+                  />
+
+                  {/* Sparkline path */}
+                  <polyline
+                    fill="none"
+                    stroke="#3b82f6"
+                    strokeWidth="2"
+                    points={sparklinePoints}
+                    className="transition-all duration-1000"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            {/* System Console Logs */}
+            <div className="bg-slate-950 rounded-xl p-4 border border-slate-800/60 font-mono text-xs text-left h-[100px] overflow-hidden flex flex-col justify-start gap-1">
+              <span className="text-[9px] uppercase text-brand-accent/70 font-bold tracking-wider mb-1 block select-none">CONSOLE OUT</span>
+              <AnimatePresence mode="popLayout">
+                {sysLog.map((log, idx) => (
+                  <motion.div 
+                    key={log}
+                    initial={{ opacity: 0, x: -10, y: -5 }}
+                    animate={{ opacity: 1 - idx * 0.45, x: 0, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`leading-relaxed tracking-tight ${idx === 0 ? "text-slate-300 font-medium" : "text-slate-500"}`}
+                  >
+                    {log}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+
+            {/* Technical telemetrics footer */}
+            <div className="mt-4 flex items-center justify-between text-[9px] font-mono text-slate-500 select-none">
+              <span>LATENCY: 12ms</span>
+              <span>BUFFER: NORMAL</span>
+              <span>REGION: PK-LHE-01</span>
+            </div>
+          </motion.div>
+        </div>
       </div>
-    </div>
-  </nav>
-);
+    </section>
+  );
+};
 
-const Hero = () => (
-  <section className="relative pt-48 pb-32 bg-white overflow-hidden">
-    {/* Elite Background Accents */}
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none overflow-hidden">
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-primary/5 rounded-full blur-[120px]" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-blue-400/5 rounded-full blur-[100px]" />
-    </div>
 
-    <div className="section-container relative z-10 text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-xs font-bold uppercase tracking-[0.2em] text-brand-primary bg-brand-primary/5 border border-brand-primary/10 rounded-full">
-          <span className="w-1.5 h-1.5 bg-brand-primary rounded-full animate-pulse" />
-          Next-Gen Enterprise Solutions
-        </div>
-        
-        <h1 className="text-6xl md:text-8xl font-black text-text-main tracking-[-0.04em] mb-10 leading-[0.95]">
-          Engineering <br className="hidden md:block" />
-          <span className="text-brand-primary">Autonomous</span> Future.
-        </h1>
-        
-        <p className="text-xl md:text-2xl text-text-muted max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
-          We architect high-performance AI ecosystems and workflow engines 
-          that redefine operational speed for the modern enterprise.
-        </p>
-        
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <a href="#expertise" className="btn-primary w-full sm:w-auto px-12 py-5 text-lg shadow-2xl shadow-brand-primary/20">
-            Explore Systems <ArrowRight className="w-5 h-5" />
-          </a>
-          <a href="#philosophy" className="btn-secondary w-full sm:w-auto px-12 py-5 text-lg">
-            The Methodology
-          </a>
-        </div>
-      </motion.div>
-    </div>
-  </section>
-);
-
+// ==========================================
+// 3. Core Expertise Section
+// ==========================================
 const Expertise = () => {
   const cards = [
     {
       icon: <Globe className="w-6 h-6 text-brand-primary" />,
       title: "AI Web Applications",
-      description: "Scalable, intelligent interfaces built with Next.js and integrated with advanced LLMs like Gemini for superior user engagement."
+      description: "Intellectually integrated web platforms. Engineered with React 19, Vite, Tailwind v4, and powered by LLM integration (Gemini, Claude) for real-time computational responses.",
+      tech: ["Next.js", "React 19", "Gemini API", "Vector Embeddings"]
     },
     {
-      icon: <Zap className="w-6 h-6 text-brand-primary" />,
+      icon: <Zap className="w-6 h-6 text-brand-accent" />,
       title: "Workflow Automation",
-      description: "Autonomous pipeline engineering using n8n and custom-built engines to eliminate operational bottlenecks."
+      description: "Autonomous data-pipeline engineering. Designing custom n8n configurations and secure webhook architectures to automate complex back-office systems with zero lag.",
+      tech: ["n8n", "Node-RED", "REST/Webhooks", "JSON Schema"]
     },
     {
-      icon: <Cpu className="w-6 h-6 text-brand-primary" />,
+      icon: <Cpu className="w-6 h-6 text-brand-emerald" />,
       title: "Smart Infrastructure",
-      description: "IoT and hardware-software integration for industrial and enterprise-grade environment control systems."
+      description: "Industrial IoT hardware-software integration. Designing robust environment monitors, custom relays, and system triggers running on edge-computing containers.",
+      tech: ["IoT Edge", "MQTT", "Docker", "Node.js Server"]
     }
   ];
 
   return (
-    <section id="expertise" className="bg-surface-bg">
-      <div className="section-container">
-        <div className="text-center mb-16">
-          <h2 className="text-brand-primary font-bold uppercase tracking-widest text-sm mb-4">Core Expertise</h2>
-          <h3 className="text-4xl font-bold text-text-main">What We Build</h3>
+    <section id="expertise" className="relative bg-slate-950/40 py-32 border-y border-slate-900 dot-grid">
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/20 to-slate-950 pointer-events-none" />
+      
+      <div className="section-container relative z-10">
+        <div className="text-center mb-20">
+          <span className="text-brand-accent font-mono font-bold uppercase tracking-[0.25em] text-xs px-3 py-1.5 rounded-md bg-brand-accent/5 border border-brand-accent/10">
+            SYSTEM ENGINE CAPABILITIES
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mt-5 tracking-tight font-display">
+            What We Build
+          </h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-10">
+
+        <div className="grid lg:grid-cols-3 gap-8">
           {cards.map((card, idx) => (
             <motion.div 
               key={idx}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ 
-                y: -12,
-                scale: 1.01,
-              }}
-              viewport={{ once: true }}
-              transition={{ 
-                delay: idx * 0.1,
-                type: "spring",
-                stiffness: 260,
-                damping: 20
-              }}
-              className="tech-card p-10 group cursor-default relative overflow-hidden"
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              className="glass-panel p-8 glass-panel-hover flex flex-col justify-between group relative overflow-hidden"
             >
-              <div className="absolute top-0 left-0 w-1 h-full bg-brand-primary transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-              
-              <div className="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-8 group-hover:bg-brand-primary group-hover:border-brand-primary transition-all duration-500">
-                <div className="text-brand-primary group-hover:text-white transition-colors duration-500">
-                  {card.icon}
+              <div>
+                {/* Visual Accent Corner Glow */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/5 to-transparent rounded-bl-full pointer-events-none group-hover:from-brand-primary/10 transition-all duration-500" />
+                
+                {/* Icon Container */}
+                <div className="w-14 h-14 rounded-xl bg-slate-950/60 border border-slate-800 flex items-center justify-center mb-6 group-hover:border-brand-primary/40 group-hover:bg-slate-950 transition-all duration-500 shadow-inner">
+                  <div className="transform transition-transform duration-500 group-hover:scale-110">
+                    {card.icon}
+                  </div>
                 </div>
+                
+                <h3 className="text-2xl font-bold text-white mb-4 tracking-tight group-hover:text-brand-primary transition-colors duration-300">
+                  {card.title}
+                </h3>
+                
+                <p className="text-text-muted leading-relaxed font-medium mb-6">
+                  {card.description}
+                </p>
               </div>
-              
-              <h4 className="text-2xl font-black text-text-main mb-4 tracking-tight group-hover:text-brand-primary transition-colors duration-300">
-                {card.title}
-              </h4>
-              
-              <p className="text-text-muted leading-relaxed text-lg font-medium">
-                {card.description}
-              </p>
+
+              {/* Technologies Badges */}
+              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-800/40">
+                {card.tech.map((tag) => (
+                  <span key={tag} className="text-[10px] font-mono font-semibold px-2.5 py-1 bg-slate-900/60 border border-slate-800 text-slate-400 rounded-md group-hover:border-brand-primary/10 group-hover:text-slate-300 transition-colors duration-300">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>
@@ -174,169 +472,464 @@ const Expertise = () => {
   );
 };
 
-const Philosophy = () => (
-  <section id="philosophy" className="bg-white relative overflow-hidden">
-    <div className="section-container grid lg:grid-cols-2 gap-24 items-center">
-      <motion.div
-        initial={{ opacity: 0, x: -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2 className="text-brand-primary font-bold uppercase tracking-[0.3em] text-xs mb-6">The Methodology</h2>
-        <h3 className="text-5xl md:text-6xl font-black text-text-main mb-10 leading-[1.1] tracking-tight">
-          Systems Thinking. <br />
-          Engineering Excellence.
-        </h3>
-        <div className="space-y-8 text-text-muted text-xl leading-relaxed font-medium">
-          <p>
-            We believe that true complexity should be invisible. Our engineering process 
-            is rooted in the principles of modularity, deterministic logic, and infinite scalability.
-          </p>
-          <p>
-            By architecting autonomous ecosystems, we enable enterprises to transcend 
-            manual limitations and operate at the speed of thought.
-          </p>
-        </div>
-        <div className="mt-12 flex flex-wrap gap-3">
-          {['Modular Architecture', 'Deterministic Logic', 'Infinite Scalability', 'Autonomous Edge'].map((tag) => (
-            <span key={tag} className="px-5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold uppercase tracking-widest text-slate-600">
-              {tag}
-            </span>
-          ))}
-        </div>
-      </motion.div>
-      
-      <div className="relative group">
-        <div className="absolute inset-0 bg-brand-primary/5 rounded-[3rem] blur-3xl group-hover:bg-brand-primary/10 transition-colors duration-700" />
-        <div className="relative aspect-square rounded-[2.5rem] bg-white border border-slate-100 shadow-2xl p-10 flex items-center justify-center">
-          <div className="grid grid-cols-2 gap-8 w-full h-full">
-            {[
-              { icon: <Layers />, label: 'Architecture', desc: 'Structural Integrity' },
-              { icon: <Database />, label: 'Systems', desc: 'Data Ecosystems' },
-              { icon: <Terminal />, label: 'Logic', desc: 'Deterministic Code' },
-              { icon: <Zap />, label: 'Speed', desc: 'Operational Velocity' }
-            ].map((item, i) => (
-              <motion.div 
-                key={i}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-slate-50 rounded-3xl flex flex-col items-center justify-center p-6 border border-slate-100 hover:bg-white hover:shadow-xl transition-all duration-300"
-              >
-                <div className="text-brand-primary mb-4 transform scale-125">
-                  {item.icon}
-                </div>
-                <span className="font-black text-sm text-text-main uppercase tracking-widest">{item.label}</span>
-                <span className="text-[10px] text-text-muted font-bold uppercase tracking-tighter mt-1">{item.desc}</span>
-              </motion.div>
+
+// ==========================================
+// 4. Philosophy Section & Interactive SVG Blueprint
+// ==========================================
+const Philosophy = () => {
+  const [activeNode, setActiveNode] = useState<string>("user");
+  const [simulationRunning, setSimulationRunning] = useState(false);
+  const [simStep, setSimStep] = useState(-1);
+  const [terminalLogs, setTerminalLogs] = useState<string[]>([
+    "Blueprint Ready. Trigger simulation to run flow diagnostics."
+  ]);
+
+  const nodes = {
+    user: {
+      name: "1. Client Request",
+      desc: "User initiates an optimized workflow request with a JSON request payload.",
+      details: "Payload contains request details, JWT auth parameters, and environmental constraints. Route selected automatically.",
+      logs: [
+        "[sys] User session established via HTTPS",
+        "[sys] Header payload verified. Type: Application/JSON",
+        "[client] Sent 1.4KB request to router node"
+      ]
+    },
+    router: {
+      name: "2. Load Balancer",
+      desc: "Distributes queries dynamically to active AI worker threads based on current region.",
+      details: "Edge load balancing directs the workflow request to regional containers. Active latency monitoring.",
+      logs: [
+        "[router] Received request from client",
+        "[router] Target worker group: REGION-EAST-LLM",
+        "[router] Dispatched context payload to AI Processor"
+      ]
+    },
+    ai: {
+      name: "3. AI Processing Node",
+      desc: "Core intelligence node. Utilizes advanced Gemini reasoning engine to solve query goals.",
+      details: "Translates unstructured inputs into actionable API calls and updates system state dynamically.",
+      logs: [
+        "[ai] Loaded token constraints (8000 limit)",
+        "[ai] Executing inference model (Gemini 1.5)",
+        "[ai] Model finished reasoning in 195ms"
+      ]
+    },
+    db: {
+      name: "4. Telemetry Storage",
+      desc: "Stores and logs processing latency, session hashes, and analytics parameters.",
+      details: "Writes to real-time telemetry stores. PostgreSQL cluster writes transactional history.",
+      logs: [
+        "[db] Triggering write-ahead transactional logs",
+        "[db] Record locked successfully",
+        "[db] Telemetry record committed (ID: 0x93FA)"
+      ]
+    },
+    callback: {
+      name: "5. API Webhook Response",
+      desc: "Sends structured payload back to the client, triggering user action handlers.",
+      details: "Completes pipeline execution lifecycle. Triggers web application UI adjustments.",
+      logs: [
+        "[webhook] Formulating encrypted client envelope",
+        "[webhook] Client callback executed: 200 OK",
+        "[sys] Process lifecycle complete (Total: 254ms)"
+      ]
+    }
+  };
+
+  const handleNodeClick = (nodeKey: string) => {
+    if (simulationRunning) return;
+    setActiveNode(nodeKey);
+    setTerminalLogs(nodes[nodeKey as keyof typeof nodes].logs);
+  };
+
+  const runSimulation = async () => {
+    if (simulationRunning) return;
+    setSimulationRunning(true);
+    setTerminalLogs(["[sys] Booting pipeline simulation..."]);
+    
+    const steps = ["user", "router", "ai", "db", "callback"];
+    for (let i = 0; i < steps.length; i++) {
+      setSimStep(i);
+      const stepKey = steps[i];
+      setActiveNode(stepKey);
+      setTerminalLogs(prev => [...prev, ...nodes[stepKey as keyof typeof nodes].logs]);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+    
+    setSimStep(-1);
+    setSimulationRunning(false);
+  };
+
+  return (
+    <section id="philosophy" className="py-32 relative bg-slate-950 overflow-hidden">
+      <div className="section-container grid lg:grid-cols-12 gap-16 items-center">
+        
+        {/* Left: Text copy */}
+        <div className="lg:col-span-5 text-left">
+          <span className="text-brand-primary font-mono font-bold uppercase tracking-[0.25em] text-xs px-3 py-1.5 rounded-md bg-brand-primary/5 border border-brand-primary/10">
+            ENGINEERING PRINCIPLES
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mt-5 mb-8 tracking-tight font-display">
+            Systems Thinking. <br />Deterministic Code.
+          </h2>
+          <div className="space-y-6 text-text-muted leading-relaxed font-medium text-base sm:text-lg">
+            <p>
+              We believe that enterprise complexity should be completely invisible to users. 
+              Our architecture methodology relies on isolated modular nodes, stateless operations, 
+              and self-healing pipelines.
+            </p>
+            <p>
+              Through autonomous ecosystem engineering, we bridge the gap between AI automation 
+              and hard backend logic, creating apps that scale deterministically.
+            </p>
+          </div>
+          
+          <div className="mt-10 flex flex-wrap gap-2.5">
+            {['Modular Node Design', 'State Isolation', 'High Concurrency', 'Self-Healing Routing'].map((tag) => (
+              <span key={tag} className="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-300 rounded-lg text-xs font-mono font-semibold">
+                {tag}
+              </span>
             ))}
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-);
 
-const Portfolio = () => {
-  const projects = [
-    {
-      title: "Meeran Enterprises",
-      category: "Infrastructure",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
-      description: "Digital transformation and infrastructure engineering for global enterprise operations.",
-      link: "https://www.meeranenterprises.com/"
-    },
-    {
-      title: "Raza Meeran Billing",
-      category: "FinTech",
-      image: "/projects/raza-meeran.png",
-      description: "Autonomous financial management and automated billing engine for complex logistics.",
-      link: "https://raza-meeran-billing-system.vercel.app/"
-    },
-    {
-      title: "BidMagnet AI",
-      category: "SaaS",
-      image: "/projects/bidmagnet.png",
-      description: "High-frequency automated bidding engine powered by predictive AI models."
-    },
-    {
-      title: "FlowState ERP",
-      category: "Automation",
-      image: "/projects/flowstate.png",
-      description: "Custom ERP and dispatch automation for large-scale field service operations."
-    }
-  ];
-
-  return (
-    <section id="portfolio" className="bg-slate-50 relative overflow-hidden">
-      <div className="section-container">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-10">
-          <div className="max-w-2xl">
-            <h2 className="text-brand-primary font-bold uppercase tracking-[0.3em] text-xs mb-6">Selected Works</h2>
-            <h3 className="text-5xl md:text-6xl font-black text-text-main tracking-tight">The Portfolio.</h3>
-          </div>
-          <p className="max-w-sm text-text-muted text-lg font-medium leading-relaxed">
-            A curated showcase of high-performance systems and elite enterprise solutions.
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-12">
-          {projects.map((project, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: idx * 0.1 }}
-              className="group cursor-pointer"
-              onClick={() => project.link && window.open(project.link, '_blank')}
-            >
-              <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden bg-slate-200 shadow-2xl transition-all duration-700 group-hover:shadow-brand-primary/10">
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-1000 ease-out"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-text-main/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                {project.link && (
-                  <div className="absolute top-8 right-8 w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-2xl translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    <ExternalLink className="w-6 h-6 text-brand-primary" />
-                  </div>
+        {/* Right: SVG Diagram & Terminal Interaction Panel */}
+        <div className="lg:col-span-7 w-full flex flex-col gap-6">
+          <div className="glass-panel p-6 border-slate-800/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            
+            <div className="flex justify-between items-center mb-6">
+              <span className="text-xs font-mono font-bold uppercase text-slate-400">System Blueprint Diagnostics</span>
+              <button 
+                onClick={runSimulation}
+                disabled={simulationRunning}
+                className="btn-secondary-sm bg-brand-primary/15 border-brand-primary/20 text-brand-accent hover:bg-brand-primary hover:text-white disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              >
+                {simulationRunning ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" /> Simulating...
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-3.5 h-3.5" /> Run Simulation
+                  </>
                 )}
-                
-                <div className="absolute bottom-10 left-10 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                   <span className="px-4 py-1.5 bg-brand-primary text-white text-[10px] font-black uppercase tracking-widest rounded-full">
-                    View Case Study
-                  </span>
-                </div>
-              </div>
-              
-              <div className="mt-8 px-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em]">
-                    {project.category}
-                  </span>
-                  <div className="h-px w-8 bg-brand-primary/30" />
-                </div>
-                <h4 className="text-3xl font-black text-text-main mb-3 tracking-tight group-hover:text-brand-primary transition-colors duration-300">
-                  {project.title}
+              </button>
+            </div>
+
+            {/* Interactive SVG Diagram */}
+            <div className="bg-slate-950/80 border border-slate-800/60 rounded-xl p-4 flex items-center justify-center relative overflow-hidden mb-6 min-h-[220px]">
+              <svg className="w-full max-w-[500px] h-[160px]" viewBox="0 0 500 160">
+                {/* Connection lines */}
+                {/* Node 1 to 2 */}
+                <line 
+                  x1="50" y1="80" x2="150" y2="80" 
+                  stroke={simStep >= 1 ? "#3b82f6" : "#1e293b"} 
+                  strokeWidth="2.5" 
+                  strokeDasharray={simStep === 0 ? "5,5" : "none"}
+                  className={simStep === 0 ? "animate-grid-scroll" : ""}
+                />
+                {/* Node 2 to 3 */}
+                <line 
+                  x1="150" y1="80" x2="250" y2="80" 
+                  stroke={simStep >= 2 ? "#06b6d4" : "#1e293b"} 
+                  strokeWidth="2.5"
+                  strokeDasharray={simStep === 1 ? "5,5" : "none"}
+                />
+                {/* Node 3 to 4 */}
+                <line 
+                  x1="250" y1="80" x2="350" y2="80" 
+                  stroke={simStep >= 3 ? "#10b981" : "#1e293b"} 
+                  strokeWidth="2.5"
+                  strokeDasharray={simStep === 2 ? "5,5" : "none"}
+                />
+                {/* Node 4 to 5 */}
+                <line 
+                  x1="350" y1="80" x2="450" y2="80" 
+                  stroke={simStep >= 4 ? "#8b5cf6" : "#1e293b"} 
+                  strokeWidth="2.5"
+                  strokeDasharray={simStep === 3 ? "5,5" : "none"}
+                />
+
+                {/* Nodes circles */}
+                {/* Node 1: User */}
+                <g className="cursor-pointer" onClick={() => handleNodeClick("user")}>
+                  <circle 
+                    cx="50" cy="80" r="18" 
+                    fill="#0f172a" 
+                    stroke={activeNode === "user" ? "#3b82f6" : "#334155"} 
+                    strokeWidth="3"
+                    className="transition-all duration-300"
+                  />
+                  <Globe className={`w-5 h-5 absolute -translate-x-[10px] -translate-y-[10px] ${activeNode === "user" ? "text-brand-primary" : "text-slate-500"}`} style={{ left: "50px", top: "80px" }} />
+                </g>
+
+                {/* Node 2: Router */}
+                <g className="cursor-pointer" onClick={() => handleNodeClick("router")}>
+                  <circle 
+                    cx="150" cy="80" r="18" 
+                    fill="#0f172a" 
+                    stroke={activeNode === "router" ? "#06b6d4" : "#334155"} 
+                    strokeWidth="3"
+                    className="transition-all duration-300"
+                  />
+                  <Layers className={`w-5 h-5 absolute -translate-x-[10px] -translate-y-[10px] ${activeNode === "router" ? "text-brand-accent" : "text-slate-500"}`} style={{ left: "150px", top: "80px" }} />
+                </g>
+
+                {/* Node 3: AI Engine */}
+                <g className="cursor-pointer" onClick={() => handleNodeClick("ai")}>
+                  <circle 
+                    cx="250" cy="80" r="22" 
+                    fill="#0f172a" 
+                    stroke={activeNode === "ai" ? "#10b981" : "#334155"} 
+                    strokeWidth="3"
+                    className="transition-all duration-300"
+                  />
+                  <Cpu className={`w-6 h-6 absolute -translate-x-[12px] -translate-y-[12px] ${activeNode === "ai" ? "text-brand-emerald animate-pulse" : "text-slate-500"}`} style={{ left: "250px", top: "80px" }} />
+                </g>
+
+                {/* Node 4: DB */}
+                <g className="cursor-pointer" onClick={() => handleNodeClick("db")}>
+                  <circle 
+                    cx="350" cy="80" r="18" 
+                    fill="#0f172a" 
+                    stroke={activeNode === "db" ? "#8b5cf6" : "#334155"} 
+                    strokeWidth="3"
+                    className="transition-all duration-300"
+                  />
+                  <Database className={`w-5 h-5 absolute -translate-x-[10px] -translate-y-[10px] ${activeNode === "db" ? "text-brand-purple" : "text-slate-500"}`} style={{ left: "350px", top: "80px" }} />
+                </g>
+
+                {/* Node 5: Callback */}
+                <g className="cursor-pointer" onClick={() => handleNodeClick("callback")}>
+                  <circle 
+                    cx="450" cy="80" r="18" 
+                    fill="#0f172a" 
+                    stroke={activeNode === "callback" ? "#3b82f6" : "#334155"} 
+                    strokeWidth="3"
+                    className="transition-all duration-300"
+                  />
+                  <Terminal className={`w-5 h-5 absolute -translate-x-[10px] -translate-y-[10px] ${activeNode === "callback" ? "text-brand-primary" : "text-slate-500"}`} style={{ left: "450px", top: "80px" }} />
+                </g>
+
+                {/* Text Labels below circles */}
+                <text x="50" y="125" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="monospace">Client</text>
+                <text x="150" y="125" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="monospace">Router</text>
+                <text x="250" y="125" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="monospace">AI Agent</text>
+                <text x="350" y="125" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="monospace">Telemetry</text>
+                <text x="450" y="125" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="monospace">Callback</text>
+              </svg>
+            </div>
+
+            {/* Selected Node Details */}
+            <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-slate-800/40 text-left">
+              <div>
+                <h4 className="text-base font-bold text-white mb-2 font-display flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-brand-primary" />
+                  {nodes[activeNode as keyof typeof nodes].name}
                 </h4>
-                <p className="text-text-muted text-lg font-medium leading-relaxed max-w-md">
-                  {project.description}
+                <p className="text-xs text-text-muted leading-relaxed font-semibold">
+                  {nodes[activeNode as keyof typeof nodes].desc}
+                </p>
+                <p className="text-[11px] text-slate-500 italic mt-2.5">
+                  {nodes[activeNode as keyof typeof nodes].details}
                 </p>
               </div>
-            </motion.div>
-          ))}
+
+              {/* Console Logs */}
+              <div className="bg-slate-950 rounded-xl p-4 border border-slate-800/80 font-mono text-[11px] text-slate-400 flex flex-col gap-1.5 h-[120px] overflow-y-auto">
+                <span className="text-[9px] uppercase font-bold tracking-widest text-slate-500 block mb-1">NODE LOG STREAM</span>
+                {terminalLogs.map((log, idx) => (
+                  <div key={idx} className="leading-relaxed">
+                    {log}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
         </div>
+
       </div>
     </section>
   );
 };
 
+
+// ==========================================
+// 5. Selected Works Portfolio Section
+// ==========================================
+const Portfolio = () => {
+  const [filter, setFilter] = useState("all");
+
+  const projects = [
+    {
+      title: "Meeran Enterprises",
+      category: "infrastructure",
+      categoryLabel: "Infrastructure",
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+      description: "Digital transformation and enterprise cloud infrastructure engineering scaling to support global customer pipelines.",
+      link: "https://www.meeranenterprises.com/",
+      tech: ["Cloud Architecture", "Ecosystem Sync", "Docker"]
+    },
+    {
+      title: "Raza Meeran Billing",
+      category: "fintech",
+      categoryLabel: "FinTech / Automation",
+      image: "/projects/raza-meeran.png",
+      description: "Autonomous financial accounting and automated billing matrix designed for high-concurrency logistics.",
+      link: "https://raza-meeran-billing-system.vercel.app/",
+      tech: ["React.js", "Express API", "PostgreSQL"]
+    },
+    {
+      title: "BidMagnet AI",
+      category: "ai-web",
+      categoryLabel: "AI & Web Application",
+      image: "/projects/bidmagnet.png",
+      description: "High-frequency automated bidding engine powered by predictive neural models and Gemini context analysis.",
+      tech: ["Next.js", "Gemini API", "Python Worker"]
+    },
+    {
+      title: "FlowState ERP",
+      category: "automation",
+      categoryLabel: "Workflow Automation",
+      image: "/projects/flowstate.png",
+      description: "Custom dispatch ERP integrating automated fleet scheduling, customer notifications, and resource matching.",
+      tech: ["n8n", "Node-RED", "OAuth / API Integrations"]
+    }
+  ];
+
+  const filteredProjects = filter === "all" 
+    ? projects 
+    : projects.filter(p => p.category === filter);
+
+  return (
+    <section id="portfolio" className="py-32 relative bg-slate-950/40 border-t border-slate-900 dot-grid">
+      <div className="section-container">
+        
+        {/* Header Grid */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-10">
+          <div className="max-w-2xl text-left">
+            <span className="text-brand-accent font-mono font-bold uppercase tracking-[0.25em] text-xs px-3 py-1.5 rounded-md bg-brand-accent/5 border border-brand-accent/10">
+              ENGINEERING ARCHIVES
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-extrabold text-white mt-5 tracking-tight font-display">
+              Selected Works
+            </h2>
+          </div>
+          <p className="max-w-sm text-text-muted text-lg font-medium leading-relaxed text-left">
+            A curated collection of highly robust applications, automated workflow engines, and cloud setups.
+          </p>
+        </div>
+
+        {/* Interactive Filtering Tabs */}
+        <div className="flex flex-wrap gap-2.5 mb-12 border-b border-slate-900 pb-6 text-left">
+          {[
+            { id: "all", label: "All Projects" },
+            { id: "ai-web", label: "AI & Web Apps" },
+            { id: "automation", label: "Automation" },
+            { id: "infrastructure", label: "Infrastructure" },
+            { id: "fintech", label: "FinTech" }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setFilter(tab.id)}
+              className={`px-5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider cursor-pointer border transition-all duration-300 ${
+                filter === tab.id
+                  ? "bg-brand-primary border-brand-primary text-white shadow-lg shadow-brand-primary/15"
+                  : "bg-slate-900/60 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Dynamic Project Grid */}
+        <motion.div 
+          layout
+          className="grid md:grid-cols-2 gap-10"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project, idx) => (
+              <motion.div 
+                layout
+                key={project.title}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4 }}
+                className="group flex flex-col bg-slate-900/40 border border-slate-800/80 rounded-[2rem] overflow-hidden hover:border-brand-primary/30 transition-all duration-500 shadow-xl cursor-pointer"
+                onClick={() => project.link && window.open(project.link, '_blank')}
+              >
+                {/* Visual Image container */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="object-cover w-full h-full group-hover:scale-[1.03] transition-transform duration-[800ms] ease-out opacity-85 group-hover:opacity-100"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+                  
+                  {project.link && (
+                    <div className="absolute top-6 right-6 w-11 h-11 bg-slate-950/90 border border-slate-800 rounded-xl flex items-center justify-center shadow-2xl translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                      <ExternalLink className="w-5 h-5 text-brand-primary" />
+                    </div>
+                  )}
+
+                  <div className="absolute bottom-6 left-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-primary text-white text-[9px] font-mono font-bold uppercase tracking-wider rounded-md">
+                      View Case Study <ChevronRight className="w-3 h-3" />
+                    </span>
+                  </div>
+                </div>
+
+                {/* Description details */}
+                <div className="p-8 text-left flex-grow flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-[10px] font-mono font-bold text-brand-accent uppercase tracking-widest">
+                        {project.categoryLabel}
+                      </span>
+                      <div className="h-px w-5 bg-slate-800" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3 tracking-tight group-hover:text-brand-primary transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    <p className="text-text-muted text-sm font-semibold leading-relaxed mb-6">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  {/* Badges */}
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-900/80">
+                    {project.tech.map((t) => (
+                      <span key={t} className="text-[9px] font-mono font-semibold px-2 py-1 bg-slate-950/80 border border-slate-800/80 text-slate-500 rounded-md">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+};
+
+
+// ==========================================
+// 6. Contact Form - Terminal Console Theme
+// ==========================================
 const ContactForm = () => {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorDetails, setErrorDetails] = useState<string>('');
+  
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -375,124 +968,202 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="bg-surface-bg border border-border-light rounded-2xl p-8 mb-24">
-      <div className="grid md:grid-cols-2 gap-12">
-        <div>
-          <h3 className="text-3xl font-bold text-text-main mb-4">Let's build something <br /> extraordinary.</h3>
-          <p className="text-text-muted mb-8">
-            Ready to automate your enterprise? Reach out to our engineering team for a technical consultation.
+    <div className="glass-panel p-6 sm:p-10 border-slate-800/80 shadow-[0_20px_50px_rgba(0,0,0,0.6)] mb-20 relative overflow-hidden">
+      
+      <div className="grid lg:grid-cols-12 gap-12 items-start">
+        {/* Left Col: Info details */}
+        <div className="lg:col-span-5 text-left">
+          <span className="text-brand-primary font-mono font-bold uppercase tracking-[0.25em] text-xs px-3 py-1.5 rounded-md bg-brand-primary/5 border border-brand-primary/10">
+            CONNECT GATEWAY
+          </span>
+          <h3 className="text-3xl sm:text-4xl font-extrabold text-white mt-5 mb-4 tracking-tight font-display leading-tight">
+            Let's build something <br />extraordinary.
+          </h3>
+          <p className="text-text-muted text-sm sm:text-base font-semibold leading-relaxed mb-10 max-w-sm">
+            Ready to design or automate your systems? Connect with our engineering core to discuss custom solutions.
           </p>
+
           <div className="space-y-4">
-            <div className="flex items-center gap-4 text-sm font-semibold text-text-main">
-              <div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary">
-                <Mail className="w-5 h-5" />
+            <div className="flex items-center gap-4 text-xs sm:text-sm font-mono text-slate-300">
+              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-brand-primary">
+                <Mail className="w-4.5 h-4.5" />
               </div>
               systemshbn@gmail.com
             </div>
-            <div className="flex items-center gap-4 text-sm font-semibold text-text-main">
-              <div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary">
-                <Globe className="w-5 h-5" />
+            <div className="flex items-center gap-4 text-xs sm:text-sm font-mono text-slate-300">
+              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-brand-accent">
+                <Globe className="w-4.5 h-4.5" />
               </div>
               Lahore, Pakistan
             </div>
           </div>
         </div>
-        
-        <div className="relative">
-          <AnimatePresence mode="wait">
-            {status === 'success' ? (
-              <motion.div 
-                key="success"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                className="absolute inset-0 flex flex-col items-center justify-center text-center bg-white rounded-xl border border-green-100 p-8 z-10"
-              >
-                <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
-                <h4 className="text-xl font-bold text-text-main mb-2">Message Sent!</h4>
-                <p className="text-text-muted mb-6">Thank you for reaching out. We'll get back to you shortly.</p>
-                <button 
-                  onClick={() => setStatus('idle')}
-                  className="btn-secondary px-6 py-2 text-sm"
-                >
-                  Send another message
-                </button>
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
 
-          <form className={`space-y-4 transition-opacity duration-300 ${status === 'success' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-text-muted">Name</label>
-                <input 
-                  required
-                  name="name"
-                  type="text" 
-                  placeholder="John Doe"
-                  className="w-full px-4 py-3 rounded-xl border border-border-light bg-white focus:outline-none focus:border-brand-primary transition-colors"
-                />
+        {/* Right Col: Console Form */}
+        <div className="lg:col-span-7 w-full">
+          <div className="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+            
+            {/* Terminal Tab Bar */}
+            <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-900 font-mono text-[10px] text-slate-500 select-none">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-800" />
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-800" />
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-800" />
               </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-text-muted">Email</label>
-                <input 
-                  required
-                  name="email"
-                  type="email" 
-                  placeholder="john@example.com"
-                  className="w-full px-4 py-3 rounded-xl border border-border-light bg-white focus:outline-none focus:border-brand-primary transition-colors"
-                />
-              </div>
+              <span className="text-slate-400 font-bold flex items-center gap-1">
+                <Code2 className="w-3.5 h-3.5 text-brand-primary" /> console.contact(hbn_systems)
+              </span>
             </div>
-            <div className="space-y-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-text-muted">Message</label>
-              <textarea 
-                required
-                name="message"
-                rows={4}
-                placeholder="Tell us about your project..."
-                className="w-full px-4 py-3 rounded-xl border border-border-light bg-white focus:outline-none focus:border-brand-primary transition-colors resize-none"
-              />
-            </div>
-            <button 
-              type="submit"
-              disabled={status === 'loading'}
-              className="btn-primary w-full py-4 text-lg disabled:opacity-70 disabled:cursor-not-allowed"
-            >
-              {status === 'loading' ? (
-                <Loader2 className="w-6 h-6 animate-spin" />
+
+            <AnimatePresence mode="wait">
+              {status === 'success' ? (
+                <motion.div 
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="flex flex-col items-center justify-center text-center py-8 min-h-[300px]"
+                >
+                  <div className="w-14 h-14 bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/20 rounded-2xl flex items-center justify-center mb-5">
+                    <CheckCircle2 className="w-7 h-7" />
+                  </div>
+                  <h4 className="text-xl font-bold text-white mb-2 font-display">Connection Transmitted!</h4>
+                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 max-w-sm mb-8 font-mono text-xs text-left text-slate-400 space-y-1">
+                    <p className="text-brand-emerald">[SUCCESS] Transmit OK.</p>
+                    <p>[LOG] Telemetry payload saved.</p>
+                    <p>[LOG] Response SLA: 4 business hours.</p>
+                  </div>
+                  <button 
+                    onClick={() => setStatus('idle')}
+                    className="btn-secondary px-6 py-2.5 text-xs font-mono font-bold"
+                  >
+                    Reset Console Connection
+                  </button>
+                </motion.div>
               ) : (
-                "Send Message"
+                <form 
+                  key="form"
+                  onSubmit={handleSubmit}
+                  className="space-y-5 text-left font-mono text-xs"
+                >
+                  {/* Row 1 */}
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1">
+                        <span>var</span> name =
+                      </label>
+                      <div className={`flex items-center border rounded-xl bg-slate-900/60 transition-all duration-300 ${focusedField === 'name' ? 'border-brand-primary shadow-[0_0_15px_rgba(59,130,246,0.1)]' : 'border-slate-800/80'}`}>
+                        <span className="pl-4 pr-1 text-slate-500 select-none">"</span>
+                        <input 
+                          required
+                          name="name"
+                          type="text" 
+                          placeholder="John Doe"
+                          onFocus={() => setFocusedField('name')}
+                          onBlur={() => setFocusedField(null)}
+                          className="w-full bg-transparent px-1 py-3 text-slate-200 placeholder-slate-600 focus:outline-none font-mono"
+                        />
+                        <span className="pr-4 pl-1 text-slate-500 select-none">";</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1">
+                        <span>var</span> email =
+                      </label>
+                      <div className={`flex items-center border rounded-xl bg-slate-900/60 transition-all duration-300 ${focusedField === 'email' ? 'border-brand-primary shadow-[0_0_15px_rgba(59,130,246,0.1)]' : 'border-slate-800/80'}`}>
+                        <span className="pl-4 pr-1 text-slate-500 select-none">"</span>
+                        <input 
+                          required
+                          name="email"
+                          type="email" 
+                          placeholder="john@example.com"
+                          onFocus={() => setFocusedField('email')}
+                          onBlur={() => setFocusedField(null)}
+                          className="w-full bg-transparent px-1 py-3 text-slate-200 placeholder-slate-600 focus:outline-none font-mono"
+                        />
+                        <span className="pr-4 pl-1 text-slate-500 select-none">";</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Message field */}
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1">
+                      <span>var</span> queryDetails =
+                    </label>
+                    <div className={`flex items-start border rounded-xl bg-slate-900/60 transition-all duration-300 ${focusedField === 'message' ? 'border-brand-primary shadow-[0_0_15px_rgba(59,130,246,0.1)]' : 'border-slate-800/80'}`}>
+                      <span className="pl-4 pt-3.5 pr-1 text-slate-500 select-none">`</span>
+                      <textarea 
+                        required
+                        name="message"
+                        rows={4}
+                        placeholder="Define your optimization project requirements..."
+                        onFocus={() => setFocusedField('message')}
+                        onBlur={() => setFocusedField(null)}
+                        className="w-full bg-transparent px-1 py-3 text-slate-200 placeholder-slate-600 focus:outline-none font-mono resize-none"
+                      />
+                      <span className="pr-4 pt-3.5 pl-1 self-end text-slate-500 select-none">`;</span>
+                    </div>
+                  </div>
+
+                  {/* Submit button */}
+                  <button 
+                    type="submit"
+                    disabled={status === 'loading'}
+                    className="w-full bg-gradient-to-r from-brand-primary to-brand-accent text-white py-4 rounded-xl font-bold tracking-tight shadow-md shadow-brand-primary/15 hover:shadow-lg hover:shadow-brand-primary/25 cursor-pointer hover:-translate-y-[1px] active:translate-y-0 disabled:opacity-75 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 mt-4"
+                  >
+                    {status === 'loading' ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      <>
+                        Execute Connection <ChevronRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+
+                  {status === 'error' && (
+                    <p className="text-red-500 text-[10px] font-bold text-center mt-2.5">
+                      [ERROR] connection_refused ({errorDetails}). Re-execute query.
+                    </p>
+                  )}
+                </form>
               )}
-            </button>
-            {status === 'error' && (
-              <p className="text-red-500 text-xs font-bold text-center mt-2">
-                Something went wrong ({errorDetails}). Please try again or email us directly.
-              </p>
-            )}
-          </form>
+            </AnimatePresence>
+
+          </div>
         </div>
+
       </div>
     </div>
   );
 };
 
+
+// ==========================================
+// 7. Footer
+// ==========================================
 const Footer = () => (
-  <footer id="contact" className="bg-white border-t border-slate-100 pt-32 pb-16">
+  <footer id="contact" className="bg-slate-950 border-t border-slate-900 pt-28 pb-16 relative overflow-hidden">
+    <div className="absolute top-[80%] left-[50%] -translate-x-1/2 w-[350px] h-[150px] bg-brand-primary/5 rounded-full blur-[80px] pointer-events-none" />
+    
     <div className="max-w-[1200px] mx-auto px-6">
+      
+      {/* Contact Form component nested inside Footer to keep original semantic hierarchy */}
       <ContactForm />
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-16 mb-32">
+
+      {/* Grid container */}
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-16 mb-24 text-left">
         <div className="col-span-2 lg:col-span-2">
-          <div className="mb-10">
+          <div className="mb-8">
             <Logo />
           </div>
-          <p className="text-text-muted max-w-sm leading-relaxed mb-10 text-lg font-medium">
-            Engineering the future of enterprise autonomy. We architect high-performance 
-            ecosystems for the world's most ambitious companies.
+          <p className="text-text-muted max-w-sm leading-relaxed mb-8 font-semibold text-sm">
+            Engineering high-performance enterprise engines. We design, build, and optimize 
+            digital frameworks for ambitious scaling organizations.
           </p>
-          <div className="flex gap-5">
+          
+          <div className="flex gap-4">
             {[
               { Icon: Github, href: "https://github.com/hammadbinnasir", label: "GitHub" },
               { Icon: Linkedin, href: "https://www.linkedin.com/in/hammad-bin-nasir-8b8a011b3/", label: "LinkedIn" },
@@ -503,68 +1174,76 @@ const Footer = () => (
                 href={href} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center hover:bg-brand-primary hover:text-white hover:border-brand-primary transition-all duration-300 shadow-sm"
+                className="w-10 h-10 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all duration-300"
                 title={label}
               >
-                <Icon className="w-5 h-5" />
+                <Icon className="w-4.5 h-4.5" />
               </a>
             ))}
           </div>
         </div>
         
         <div>
-          <h5 className="text-text-main font-bold text-sm uppercase tracking-widest mb-6">Solutions</h5>
-          <ul className="space-y-4 text-sm font-medium text-text-muted">
-            <li><a href="#expertise" className="hover:text-brand-primary transition-colors">AI Integration</a></li>
-            <li><a href="#expertise" className="hover:text-brand-primary transition-colors">Workflow Automation</a></li>
-            <li><a href="#expertise" className="hover:text-brand-primary transition-colors">Smart Infrastructure</a></li>
-            <li><a href="#expertise" className="hover:text-brand-primary transition-colors">Custom ERP</a></li>
+          <h5 className="text-white font-bold text-xs uppercase tracking-wider mb-6 font-mono">Solutions</h5>
+          <ul className="space-y-4 text-xs font-semibold text-text-muted">
+            <li><a href="#expertise" className="hover:text-white transition-colors duration-300">AI Integration</a></li>
+            <li><a href="#expertise" className="hover:text-white transition-colors duration-300">Workflow Engines</a></li>
+            <li><a href="#expertise" className="hover:text-white transition-colors duration-300">Smart Edge IoT</a></li>
+            <li><a href="#expertise" className="hover:text-white transition-colors duration-300">Optimized ERP</a></li>
           </ul>
         </div>
 
         <div>
-          <h5 className="text-text-main font-bold text-sm uppercase tracking-widest mb-6">Company</h5>
-          <ul className="space-y-4 text-sm font-medium text-text-muted">
-            <li><a href="#philosophy" className="hover:text-brand-primary transition-colors">Our Philosophy</a></li>
-            <li><a href="#portfolio" className="hover:text-brand-primary transition-colors">Selected Works</a></li>
-            <li><a href="#portfolio" className="hover:text-brand-primary transition-colors">The Lab</a></li>
-            <li><a href="#contact" className="hover:text-brand-primary transition-colors">Contact Us</a></li>
+          <h5 className="text-white font-bold text-xs uppercase tracking-wider mb-6 font-mono">Studio</h5>
+          <ul className="space-y-4 text-xs font-semibold text-text-muted">
+            <li><a href="#philosophy" className="hover:text-white transition-colors duration-300">Methodology</a></li>
+            <li><a href="#portfolio" className="hover:text-white transition-colors duration-300">Selected Works</a></li>
+            <li><a href="#portfolio" className="hover:text-white transition-colors duration-300">The Sandbox</a></li>
+            <li><a href="#contact" className="hover:text-white transition-colors duration-300">Contact Gateway</a></li>
           </ul>
         </div>
 
         <div>
-          <h5 className="text-text-main font-bold text-sm uppercase tracking-widest mb-6">Legal</h5>
-          <ul className="space-y-4 text-sm font-medium text-text-muted">
-            <li><a href="#" className="hover:text-brand-primary transition-colors">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-brand-primary transition-colors">Terms of Service</a></li>
-            <li><a href="#" className="hover:text-brand-primary transition-colors">Cookie Settings</a></li>
+          <h5 className="text-white font-bold text-xs uppercase tracking-wider mb-6 font-mono">Security</h5>
+          <ul className="space-y-4 text-xs font-semibold text-text-muted">
+            <li><a href="#" className="hover:text-white transition-colors duration-300">Privacy Protocols</a></li>
+            <li><a href="#" className="hover:text-white transition-colors duration-300">System Logs</a></li>
+            <li><a href="#" className="hover:text-white transition-colors duration-300">Security SLA</a></li>
           </ul>
         </div>
       </div>
       
-      <div className="flex flex-col md:flex-row items-center justify-between pt-10 border-t border-border-light">
-        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-xs font-bold text-text-muted uppercase tracking-widest">
+      {/* Sub Footer details */}
+      <div className="flex flex-col md:flex-row items-center justify-between pt-10 border-t border-slate-900 font-mono text-[10px] text-slate-500 tracking-wider">
+        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 font-bold uppercase">
           <span>© 2026 Hammad Bin Nasir Group</span>
-          <span className="hidden md:block w-1 h-1 bg-border-light rounded-full" />
-          <span>All rights reserved.</span>
+          <span className="hidden md:block w-1.5 h-1.5 bg-slate-800 rounded-full" />
+          <span>All Rights Reserved.</span>
         </div>
-        <div className="mt-6 md:mt-0 flex items-center gap-6 text-xs font-bold text-text-muted uppercase tracking-widest">
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            Systems Operational
+        
+        <div className="mt-6 md:mt-0 flex items-center gap-6 font-bold uppercase">
+          <span className="flex items-center gap-2 text-brand-emerald">
+            <span className="w-2.5 h-2.5 bg-brand-emerald/10 border border-brand-emerald/30 rounded-full flex items-center justify-center">
+              <span className="w-1.5 h-1.5 bg-brand-emerald rounded-full animate-pulse" />
+            </span>
+            SYSTEMS OPERATIONAL [14ms]
           </span>
-          <a href="#" className="hover:text-brand-primary transition-colors">Back to Top</a>
+          <a href="#" className="hover:text-white transition-colors duration-300">Back to Top</a>
         </div>
       </div>
+
     </div>
   </footer>
 );
 
+// ==========================================
+// 8. Main Application Root
+// ==========================================
 export default function App() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-brand-primary/20 select-none">
       <Navbar />
-      <main>
+      <main className="flex-grow">
         <Hero />
         <Expertise />
         <Philosophy />
