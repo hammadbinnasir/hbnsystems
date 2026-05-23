@@ -56,8 +56,8 @@ const Logo = () => (
       <span className="font-display font-extrabold text-xl tracking-tight text-white leading-none">
         HBN<span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-primary to-brand-accent ml-1.5 font-black">SYSTEMS</span>
       </span>
-      <span className="text-[9px] font-mono font-bold uppercase tracking-[0.35em] text-brand-accent/80 mt-1">
-        ENGINEERING STUDIO
+      <span className="text-[9px] font-mono font-bold uppercase tracking-[0.3em] text-brand-accent/80 mt-1">
+        ENGINEERING EXCELLENCE
       </span>
     </div>
   </div>
