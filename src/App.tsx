@@ -165,222 +165,48 @@ const Navbar = () => {
 // 2. Hero Section & System Metrics Dashboard
 // ==========================================
 const Hero = () => {
-  // Live Dashboard State
-  const [cpuHistory, setCpuHistory] = useState([42, 45, 48, 52, 44, 49, 53, 50, 48, 52]);
-  const [activeThreads, setActiveThreads] = useState(14);
-  const [sysLog, setSysLog] = useState<string[]>([
-    "INIT: Core engines loaded.",
-    "SYNC: Router mapped to Gateway-01."
-  ]);
-
-  // Simulate telemetry changes
-  useEffect(() => {
-    const telemetryInterval = setInterval(() => {
-      setCpuHistory(prev => {
-        const lastVal = prev[prev.length - 1];
-        const change = Math.floor(Math.random() * 21) - 10; // -10 to +10
-        const newVal = Math.max(15, Math.min(85, lastVal + change));
-        return [...prev.slice(1), newVal];
-      });
-      
-      setActiveThreads(prev => {
-        const change = Math.random() > 0.5 ? 1 : -1;
-        return Math.max(8, Math.min(22, prev + change));
-      });
-    }, 1500);
-
-    const logList = [
-      "AI: Vector store query compiled (1.2ms).",
-      "PIPELINE: Node dispatch trigger executed.",
-      "IOT: Environment packet stored successfully.",
-      "SEC: Security handshake verified [SHA256].",
-      "API: Gateway latency stabilized at 12ms.",
-      "AUTO: Webhook queue flushed: 0 items.",
-      "DB: PostgreSQL cluster auto-optimized."
-    ];
-
-    const logInterval = setInterval(() => {
-      const randomLog = logList[Math.floor(Math.random() * logList.length)];
-      const now = new Date();
-      const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
-      setSysLog(prev => [`[${timeStr}] ${randomLog}`, prev[0]]);
-    }, 4000);
-
-    return () => {
-      clearInterval(telemetryInterval);
-      clearInterval(logInterval);
-    };
-  }, []);
-
-  // CPU Graph Coordinates
-  const chartWidth = 240;
-  const chartHeight = 60;
-  const sparklinePoints = cpuHistory
-    .map((val, idx) => {
-      const x = (idx / (cpuHistory.length - 1)) * chartWidth;
-      const y = chartHeight - (val / 100) * chartHeight;
-      return `${x},${y}`;
-    })
-    .join(" ");
-
   return (
-    <section className="relative pt-44 pb-36 overflow-hidden dot-grid">
+    <section className="relative pt-52 pb-40 overflow-hidden dot-grid">
       {/* Ambient background glows */}
       <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-brand-primary/10 rounded-full blur-[150px] pointer-events-none animate-cyber-pulse" />
       <div className="absolute bottom-[0%] right-[-10%] w-[500px] h-[500px] bg-brand-purple/10 rounded-full blur-[130px] pointer-events-none" />
 
-      <div className="section-container grid lg:grid-cols-12 gap-16 items-center">
-        {/* Left Side: Copy */}
-        <div className="lg:col-span-7 text-left">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {/* Styled Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4.5 py-2.5 mb-8 text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-accent bg-brand-accent/5 border border-brand-accent/20 rounded-full">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-emerald opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-emerald"></span>
-              </span>
-              Next-Gen Autonomous Systems
-            </div>
+      <div className="section-container text-center max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Styled Badge */}
+          <div className="inline-flex items-center gap-2.5 px-4.5 py-2.5 mb-8 text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-accent bg-brand-accent/5 border border-brand-accent/20 rounded-full">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-emerald opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-emerald"></span>
+            </span>
+            Next-Gen Autonomous Systems
+          </div>
 
-            <h1 className="text-5xl sm:text-7xl font-extrabold text-white tracking-tight leading-[1.05] mb-8 font-display">
-              Architecting the <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-accent to-brand-emerald font-black">
-                Autonomous
-              </span> Future.
-            </h1>
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold text-white tracking-tight leading-[1.05] mb-8 font-display">
+            Architecting the <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-accent to-brand-emerald font-black">
+              Autonomous
+            </span> Future.
+          </h1>
 
-            <p className="text-lg sm:text-xl text-text-muted max-w-2xl mb-12 leading-relaxed font-medium">
-              We design and engineer high-performance AI engines, scalable workflow automations, 
-              and state-of-the-art IoT infrastructure to accelerate modern enterprise systems.
-            </p>
+          <p className="text-lg sm:text-xl md:text-2xl text-text-muted max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
+            We design and engineer high-performance AI engines, scalable workflow automations, 
+            and state-of-the-art IoT infrastructure to accelerate modern enterprise systems.
+          </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-5">
-              <a href="#expertise" className="btn-primary w-full sm:w-auto shadow-2xl shadow-brand-primary/10 group">
-                Explore Systems <ArrowRight className="w-5 h-5 ml-1 text-white group-hover:translate-x-1.5 transition-transform" />
-              </a>
-              <a href="#philosophy" className="btn-secondary w-full sm:w-auto bg-slate-950/20">
-                The Methodology
-              </a>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Right Side: Live Interactive Dashboard Widget */}
-        <div className="lg:col-span-5 w-full">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="glass-panel p-6 border-slate-800/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] relative overflow-hidden"
-          >
-            {/* Terminal Window Top Bar */}
-            <div className="flex items-center justify-between pb-4 mb-5 border-b border-slate-800/60 font-mono text-[11px] text-slate-500">
-              <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/30" />
-                <span className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/30" />
-                <span className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/30" />
-              </div>
-              <span className="flex items-center gap-1.5 text-slate-400 select-none">
-                <Activity className="w-3.5 h-3.5 text-brand-accent animate-pulse" /> sys_telemetry.sh
-              </span>
-            </div>
-
-            {/* Simulated Live Gauges */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="bg-slate-950/50 rounded-xl p-4 border border-slate-800/40">
-                <span className="block text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider mb-1">CPU LOAD</span>
-                <span className="text-3xl font-mono font-bold text-white tracking-tight">
-                  {cpuHistory[cpuHistory.length - 1]}%
-                </span>
-                <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden mt-2.5">
-                  <div 
-                    className="bg-gradient-to-r from-brand-primary to-brand-accent h-full transition-all duration-1000"
-                    style={{ width: `${cpuHistory[cpuHistory.length - 1]}%` }}
-                  />
-                </div>
-              </div>
-
-              <div className="bg-slate-950/50 rounded-xl p-4 border border-slate-800/40">
-                <span className="block text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider mb-1">ACTIVE PROCESSES</span>
-                <span className="text-3xl font-mono font-bold text-brand-emerald tracking-tight">
-                  {activeThreads} <span className="text-[10px] text-slate-500">threads</span>
-                </span>
-                <div className="flex items-center gap-1 mt-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-emerald animate-ping" />
-                  <span className="text-[9px] font-mono text-slate-500">Auto-Scaling Operational</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Sparkline Graphic */}
-            <div className="bg-slate-950/60 rounded-xl p-4 border border-slate-800/40 mb-6">
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">REALTIME CPU HISTOGRAM</span>
-                <span className="text-[9px] font-mono text-slate-500">SAMPLE INTERVAL 1.5s</span>
-              </div>
-              <div className="relative h-[65px] flex items-end">
-                <svg className="w-full h-full" viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="none">
-                  {/* Grid Lines */}
-                  <line x1="0" y1="20" x2={chartWidth} y2="20" stroke="rgba(51, 65, 85, 0.2)" strokeWidth="1" strokeDasharray="3,3" />
-                  <line x1="0" y1="40" x2={chartWidth} y2="40" stroke="rgba(51, 65, 85, 0.2)" strokeWidth="1" strokeDasharray="3,3" />
-                  
-                  {/* Fill Area Gradient */}
-                  <defs>
-                    <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.25" />
-                      <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.0" />
-                    </linearGradient>
-                  </defs>
-
-                  {/* Shaded Area */}
-                  <path 
-                    d={`M 0,${chartHeight} L ${sparklinePoints} L ${chartWidth},${chartHeight} Z`}
-                    fill="url(#chartGlow)"
-                  />
-
-                  {/* Sparkline path */}
-                  <polyline
-                    fill="none"
-                    stroke="#3b82f6"
-                    strokeWidth="2"
-                    points={sparklinePoints}
-                    className="transition-all duration-1000"
-                  />
-                </svg>
-              </div>
-            </div>
-
-            {/* System Console Logs */}
-            <div className="bg-slate-950 rounded-xl p-4 border border-slate-800/60 font-mono text-xs text-left h-[100px] overflow-hidden flex flex-col justify-start gap-1">
-              <span className="text-[9px] uppercase text-brand-accent/70 font-bold tracking-wider mb-1 block select-none">CONSOLE OUT</span>
-              <AnimatePresence mode="popLayout">
-                {sysLog.map((log, idx) => (
-                  <motion.div 
-                    key={log}
-                    initial={{ opacity: 0, x: -10, y: -5 }}
-                    animate={{ opacity: 1 - idx * 0.45, x: 0, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className={`leading-relaxed tracking-tight ${idx === 0 ? "text-slate-300 font-medium" : "text-slate-500"}`}
-                  >
-                    {log}
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </div>
-
-            {/* Technical telemetrics footer */}
-            <div className="mt-4 flex items-center justify-between text-[9px] font-mono text-slate-500 select-none">
-              <span>LATENCY: 12ms</span>
-              <span>BUFFER: NORMAL</span>
-              <span>REGION: PK-LHE-01</span>
-            </div>
-          </motion.div>
-        </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+            <a href="#expertise" className="btn-primary w-full sm:w-auto shadow-2xl shadow-brand-primary/10 group px-10 py-5">
+              Explore Systems <ArrowRight className="w-5 h-5 ml-1 text-white group-hover:translate-x-1.5 transition-transform" />
+            </a>
+            <a href="#philosophy" className="btn-secondary w-full sm:w-auto bg-slate-950/20 px-10 py-5">
+              The Methodology
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
