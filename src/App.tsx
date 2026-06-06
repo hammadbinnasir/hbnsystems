@@ -620,7 +620,7 @@ const Portfolio = () => {
       title: "SmartLib Pro",
       category: "ai-web",
       categoryLabel: "Library Management / AI Chatbot",
-      image: "/projects/smartlib.jpeg",
+      image: "/projects/smartlib-real.jpeg",
       description: "Engineered a professional library management system featuring a custom Gemini AI chatbot for intelligent catalogue assistance and an automated reservation queue for optimized inventory circulation.",
       link: "https://smart-library-ten.vercel.app",
       tech: ["React", "Gemini API", "Intelligent Chatbot", "Queue Management"]
