@@ -593,7 +593,7 @@ const Portfolio = () => {
       title: "Raza Meeran Enterprises",
       category: "infrastructure",
       categoryLabel: "B2B Industrial Platform",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+      image: "/projects/meeranenterprises.jpeg",
       description: "Designed and deployed a premium B2B platform for industrial safety gear, currently in active use by the client. Features dynamic product discovery and automated distributor inquiry workflows.",
       link: "https://meeranenterprises.com",
       tech: ["B2B Platform", "Distributor Workflows", "Product Discovery", "Cloud Hosting"]
@@ -611,7 +611,7 @@ const Portfolio = () => {
       title: "Cosmicmind",
       category: "ai-web",
       categoryLabel: "AI Multi-Agent System",
-      image: "/projects/cosmicmind.png",
+      image: "/projects/Cosmicmind_1.jpeg",
       description: "Engineered a simulated astrophysics research engine powered by a multi-agent system of 7 specialized AI agents to automate spectral analysis, anomaly detection, and telescope coordinate generation.",
       link: "https://cosmicmind.vercel.app",
       tech: ["Next.js", "Multi-Agent System", "AI Reasoning", "Data Visualization"]
@@ -629,7 +629,7 @@ const Portfolio = () => {
       title: "BidMagnet AI",
       category: "ai-web",
       categoryLabel: "AI Proposal Architect",
-      image: "/projects/bidmagnet.png",
+      image: "/projects/bidmagnet_1.jpeg",
       description: "Engineered an AI SaaS tool using Next.js + Gemini to generate professional business bids instantly. Integrated structured LLM output handling and a polished proposal UI.",
       link: "https://bidmagnet-nine.vercel.app",
       tech: ["Next.js", "Gemini API", "Structured Outputs", "SaaS Proposal UI"]
