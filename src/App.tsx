@@ -32,14 +32,14 @@ const Logo = () => (
   <div className="flex items-center gap-3.5 group cursor-pointer">
     <div className="relative flex items-center justify-center">
       {/* Outer spinning hexagon border */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-xl blur-md opacity-40 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
-      <div className="relative w-11 h-11 bg-slate-900 border border-slate-700/80 rounded-xl flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:rounded-2xl group-hover:border-brand-primary shadow-2xl">
+      <div className="absolute inset-0 bg-white rounded-xl blur-md opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500" />
+      <div className="relative w-11 h-11 bg-black/40 border border-white/10 rounded-xl flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:rounded-2xl group-hover:border-white/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-xl">
         <svg 
           viewBox="0 0 24 24" 
           fill="none" 
-          className="w-6 h-6 text-brand-primary transform transition-all duration-700 group-hover:scale-110 group-hover:text-brand-accent"
+          className="w-6 h-6 text-white transform transition-all duration-700 group-hover:scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
           stroke="currentColor" 
-          strokeWidth="2.5" 
+          strokeWidth="2" 
           strokeLinecap="round" 
           strokeLinejoin="round"
         >
@@ -49,14 +49,14 @@ const Logo = () => (
           <path d="M12 12L3 7.5" className="opacity-70 group-hover:opacity-100 transition-opacity" />
         </svg>
         {/* Glow overlay inside logo */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
     </div>
     <div className="flex flex-col">
       <span className="font-display font-extrabold text-xl tracking-tight text-white leading-none">
-        HBN<span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-primary to-brand-accent ml-1.5 font-black">SYSTEMS</span>
+        HBN<span className="text-zinc-400 font-medium ml-1.5">SYSTEMS</span>
       </span>
-      <span className="text-[9px] font-mono font-bold uppercase tracking-[0.3em] text-brand-accent/80 mt-1">
+      <span className="text-[9px] font-mono font-bold uppercase tracking-[0.3em] text-zinc-500 mt-1">
         ENGINEERING EXCELLENCE
       </span>
     </div>
@@ -79,35 +79,32 @@ const Navbar = () => {
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
         scrolled 
-          ? "bg-slate-950/80 backdrop-blur-xl border-slate-900 py-3.5 shadow-2xl" 
+          ? "bg-[#050505]/70 backdrop-blur-2xl border-white/5 py-3.5 shadow-[0_4px_30px_rgba(0,0,0,0.5)]" 
           : "bg-transparent border-transparent py-5"
       }`}>
         <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
           <Logo />
           
           {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-text-muted">
+          <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-zinc-400">
             <a href="#expertise" className="hover:text-white transition-colors duration-300 relative py-1 group">
               Expertise
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-primary group-hover:w-full transition-all duration-300" />
             </a>
             <a href="#philosophy" className="hover:text-white transition-colors duration-300 relative py-1 group">
               Methodology
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-primary group-hover:w-full transition-all duration-300" />
             </a>
             <a href="#portfolio" className="hover:text-white transition-colors duration-300 relative py-1 group">
               Selected Works
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-primary group-hover:w-full transition-all duration-300" />
             </a>
-            <a href="#contact" className="btn-secondary-sm px-5 py-2.5 rounded-xl border-brand-primary/20 hover:border-brand-primary/50 text-white font-bold bg-slate-950/40">
-              Get Started <ArrowRight className="w-3.5 h-3.5 ml-1 text-brand-accent group-hover:translate-x-1 transition-transform" />
+            <a href="#contact" className="btn-secondary-sm">
+              Get Started <ArrowRight className="w-3.5 h-3.5 ml-1 text-white group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
 
           {/* Mobile Navigation Toggle */}
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-slate-400 hover:text-white transition-colors"
+            className="md:hidden p-2 text-zinc-400 hover:text-white transition-colors"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -123,26 +120,26 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 top-[70px] z-40 md:hidden bg-slate-950/95 backdrop-blur-2xl border-b border-slate-900 px-6 py-8 flex flex-col gap-6"
+            className="fixed inset-0 top-[70px] z-40 md:hidden bg-[#050505]/95 backdrop-blur-2xl border-b border-white/5 px-6 py-8 flex flex-col gap-6"
           >
             <a 
               href="#expertise" 
               onClick={() => setIsOpen(false)}
-              className="text-2xl font-bold text-slate-100 hover:text-brand-primary transition-colors py-2 border-b border-slate-900"
+              className="text-2xl font-bold text-white hover:text-zinc-300 transition-colors py-2 border-b border-white/5"
             >
               Expertise
             </a>
             <a 
               href="#philosophy" 
               onClick={() => setIsOpen(false)}
-              className="text-2xl font-bold text-slate-100 hover:text-brand-primary transition-colors py-2 border-b border-slate-900"
+              className="text-2xl font-bold text-white hover:text-zinc-300 transition-colors py-2 border-b border-white/5"
             >
               Methodology
             </a>
             <a 
               href="#portfolio" 
               onClick={() => setIsOpen(false)}
-              className="text-2xl font-bold text-slate-100 hover:text-brand-primary transition-colors py-2 border-b border-slate-900"
+              className="text-2xl font-bold text-white hover:text-zinc-300 transition-colors py-2 border-b border-white/5"
             >
               Selected Works
             </a>
@@ -166,43 +163,45 @@ const Navbar = () => {
 // ==========================================
 const Hero = () => {
   return (
-    <section className="relative pt-52 pb-40 overflow-hidden dot-grid">
-      {/* Ambient background glows */}
-      <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-brand-primary/10 rounded-full blur-[150px] pointer-events-none animate-cyber-pulse" />
-      <div className="absolute bottom-[0%] right-[-10%] w-[500px] h-[500px] bg-brand-purple/10 rounded-full blur-[130px] pointer-events-none" />
+    <section className="relative pt-52 pb-40 overflow-hidden">
+      {/* Abstract 3D Ambient Orbs */}
+      <div className="absolute top-[-10%] left-[10%] w-[500px] h-[500px] bg-white/[0.03] border border-white/5 shadow-[0_0_100px_rgba(255,255,255,0.05)] rounded-full blur-[80px] pointer-events-none animate-orb-1" />
+      <div className="absolute bottom-[-10%] right-[10%] w-[600px] h-[600px] bg-white/[0.02] border border-white/5 shadow-[0_0_120px_rgba(255,255,255,0.03)] rounded-full blur-[100px] pointer-events-none animate-orb-2" />
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDIiLz4KPHBhdGggZD0iTTAgMEw4IDhaTTAgOEw4IDBaIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjA0IiBzdHJva2Utd2lkdGg9IjEiLz4KPC9zdmc+')] opacity-20 pointer-events-none" style={{ maskImage: "linear-gradient(to bottom, black, transparent)" }} />
 
-      <div className="section-container text-center max-w-4xl mx-auto">
+      <div className="section-container text-center max-w-5xl mx-auto z-10 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center"
         >
           {/* Styled Badge */}
-          <div className="inline-flex items-center gap-2.5 px-4.5 py-2.5 mb-8 text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-accent bg-brand-accent/5 border border-brand-accent/20 rounded-full">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-emerald opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-emerald"></span>
+          <div className="tag-etched mb-8 flex items-center gap-2 px-4 py-2">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-zinc-300"></span>
             </span>
-            Next-Gen Autonomous Systems
+            Premium Autonomous Systems
           </div>
 
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold text-white tracking-tight leading-[1.05] mb-8 font-display">
+          <h1 className="text-6xl sm:text-7xl md:text-8xl font-extrabold text-white tracking-tighter leading-[1.05] mb-8 font-display drop-shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
             Architecting the <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-accent to-brand-emerald font-black">
+            <span className="text-gradient-premium">
               Autonomous
             </span> Future.
           </h1>
 
-          <p className="text-lg sm:text-xl md:text-2xl text-text-muted max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
+          <p className="text-lg sm:text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto mb-12 leading-relaxed font-medium drop-shadow-md">
             We design and engineer high-performance AI engines, scalable workflow automations, 
             and state-of-the-art IoT infrastructure to accelerate modern enterprise systems.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-            <a href="#expertise" className="btn-primary w-full sm:w-auto shadow-2xl shadow-brand-primary/10 group px-10 py-5">
-              Explore Systems <ArrowRight className="w-5 h-5 ml-1 text-white group-hover:translate-x-1.5 transition-transform" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto">
+            <a href="#expertise" className="btn-primary w-full sm:w-auto group px-10 py-5 text-lg">
+              Explore Systems <ArrowRight className="w-5 h-5 ml-1 text-white/70 group-hover:translate-x-1.5 transition-transform" />
             </a>
-            <a href="#philosophy" className="btn-secondary w-full sm:w-auto bg-slate-950/20 px-10 py-5">
+            <a href="#philosophy" className="btn-secondary w-full sm:w-auto px-10 py-5 text-lg">
               The Methodology
             </a>
           </div>
@@ -219,19 +218,19 @@ const Hero = () => {
 const Expertise = () => {
   const cards = [
     {
-      icon: <Globe className="w-6 h-6 text-brand-primary" />,
+      icon: <Globe className="w-6 h-6 text-white" />,
       title: "AI Web Applications",
       description: "Intellectually integrated web platforms. Engineered with React 19, Vite, Tailwind v4, and powered by LLM integration (Gemini, Claude) for real-time computational responses.",
       tech: ["Next.js", "React 19", "Gemini API", "Vector Embeddings"]
     },
     {
-      icon: <Zap className="w-6 h-6 text-brand-accent" />,
+      icon: <Zap className="w-6 h-6 text-white" />,
       title: "Workflow Automation",
       description: "Autonomous data-pipeline engineering. Designing custom n8n configurations and secure webhook architectures to automate complex back-office systems with zero lag.",
       tech: ["n8n", "Node-RED", "REST/Webhooks", "JSON Schema"]
     },
     {
-      icon: <Cpu className="w-6 h-6 text-brand-emerald" />,
+      icon: <Cpu className="w-6 h-6 text-white" />,
       title: "Smart Infrastructure",
       description: "Industrial IoT hardware-software integration. Designing robust environment monitors, custom relays, and system triggers running on edge-computing containers.",
       tech: ["IoT Edge", "MQTT", "Docker", "Node.js Server"]
@@ -239,15 +238,15 @@ const Expertise = () => {
   ];
 
   return (
-    <section id="expertise" className="relative bg-slate-950/40 py-32 border-y border-slate-900 dot-grid">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/20 to-slate-950 pointer-events-none" />
+    <section id="expertise" className="relative bg-[#050505] py-32 border-y border-white/5 dot-grid">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505] pointer-events-none" />
       
       <div className="section-container relative z-10">
         <div className="text-center mb-20">
-          <span className="text-brand-accent font-mono font-bold uppercase tracking-[0.25em] text-xs px-3 py-1.5 rounded-md bg-brand-accent/5 border border-brand-accent/10">
+          <span className="tag-etched">
             SYSTEM ENGINE CAPABILITIES
           </span>
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mt-5 tracking-tight font-display">
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mt-5 tracking-tight font-display drop-shadow-md">
             What We Build
           </h2>
         </div>
@@ -256,36 +255,36 @@ const Expertise = () => {
           {cards.map((card, idx) => (
             <motion.div 
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ delay: idx * 0.1, duration: 0.5 }}
-              className="glass-panel p-8 glass-panel-hover flex flex-col justify-between group relative overflow-hidden"
+              transition={{ delay: idx * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="glass-3d-panel p-8 glass-3d-panel-hover flex flex-col justify-between group relative overflow-hidden"
             >
               <div>
                 {/* Visual Accent Corner Glow */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/5 to-transparent rounded-bl-full pointer-events-none group-hover:from-brand-primary/10 transition-all duration-500" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-full pointer-events-none group-hover:from-white/20 transition-all duration-700" />
                 
                 {/* Icon Container */}
-                <div className="w-14 h-14 rounded-xl bg-slate-950/60 border border-slate-800 flex items-center justify-center mb-6 group-hover:border-brand-primary/40 group-hover:bg-slate-950 transition-all duration-500 shadow-inner">
-                  <div className="transform transition-transform duration-500 group-hover:scale-110">
+                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 group-hover:bg-white/10 group-hover:border-white/30 transition-all duration-500 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                  <div className="transform transition-transform duration-500 group-hover:scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
                     {card.icon}
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-4 tracking-tight group-hover:text-brand-primary transition-colors duration-300">
+                <h3 className="text-2xl font-bold text-white mb-4 tracking-tight group-hover:text-zinc-200 transition-colors duration-300">
                   {card.title}
                 </h3>
                 
-                <p className="text-text-muted leading-relaxed font-medium mb-6">
+                <p className="text-zinc-400 leading-relaxed font-medium mb-6">
                   {card.description}
                 </p>
               </div>
 
               {/* Technologies Badges */}
-              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-800/40">
+              <div className="flex flex-wrap gap-2 mt-4 pt-6 border-t border-white/5">
                 {card.tech.map((tag) => (
-                  <span key={tag} className="text-[10px] font-mono font-semibold px-2.5 py-1 bg-slate-900/60 border border-slate-800 text-slate-400 rounded-md group-hover:border-brand-primary/10 group-hover:text-slate-300 transition-colors duration-300">
+                  <span key={tag} className="text-[10px] font-mono font-semibold px-2.5 py-1 bg-black/40 border border-white/10 text-zinc-400 rounded-lg group-hover:border-white/20 group-hover:text-white transition-colors duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
                     {tag}
                   </span>
                 ))}
@@ -388,18 +387,18 @@ const Philosophy = () => {
   };
 
   return (
-    <section id="philosophy" className="py-32 relative bg-slate-950 overflow-hidden">
+    <section id="philosophy" className="py-32 relative bg-[#050505] overflow-hidden">
       <div className="section-container grid lg:grid-cols-12 gap-16 items-center">
         
         {/* Left: Text copy */}
         <div className="lg:col-span-5 text-left">
-          <span className="text-brand-primary font-mono font-bold uppercase tracking-[0.25em] text-xs px-3 py-1.5 rounded-md bg-brand-primary/5 border border-brand-primary/10">
+          <span className="tag-etched">
             ENGINEERING PRINCIPLES
           </span>
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mt-5 mb-8 tracking-tight font-display">
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-white mt-5 mb-8 tracking-tight font-display drop-shadow-md">
             Systems Thinking. <br />Deterministic Code.
           </h2>
-          <div className="space-y-6 text-text-muted leading-relaxed font-medium text-base sm:text-lg">
+          <div className="space-y-6 text-zinc-400 leading-relaxed font-medium text-base sm:text-lg">
             <p>
               We believe that enterprise complexity should be completely invisible to users. 
               Our architecture methodology relies on isolated modular nodes, stateless operations, 
@@ -413,7 +412,7 @@ const Philosophy = () => {
           
           <div className="mt-10 flex flex-wrap gap-2.5">
             {['Modular Node Design', 'State Isolation', 'High Concurrency', 'Self-Healing Routing'].map((tag) => (
-              <span key={tag} className="px-4 py-2 bg-slate-900 border border-slate-800 text-slate-300 rounded-lg text-xs font-mono font-semibold">
+              <span key={tag} className="tag-etched">
                 {tag}
               </span>
             ))}
@@ -422,7 +421,7 @@ const Philosophy = () => {
 
         {/* Right: SVG Diagram & Terminal Interaction Panel */}
         <div className="lg:col-span-7 w-full flex flex-col gap-6">
-          <div className="glass-panel p-6 border-slate-800/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+          <div className="glass-3d-panel p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
             
             <div className="flex justify-between items-center mb-6">
               <span className="text-xs font-mono font-bold uppercase text-slate-400">System Blueprint Diagnostics</span>
@@ -620,7 +619,7 @@ const Portfolio = () => {
       title: "SmartLib Pro",
       category: "ai-web",
       categoryLabel: "Library Management / AI Chatbot",
-      image: "/projects/smartlib-real.jpeg",
+      image: "/projects/smartlib.jpeg",
       description: "Engineered a professional library management system featuring a custom Gemini AI chatbot for intelligent catalogue assistance and an automated reservation queue for optimized inventory circulation.",
       link: "https://smart-library-ten.vercel.app",
       tech: ["React", "Gemini API", "Intelligent Chatbot", "Queue Management"]
@@ -638,7 +637,7 @@ const Portfolio = () => {
       title: "FrontDesk Dental",
       category: "automation",
       categoryLabel: "Workflow Automation / AI",
-      image: "/projects/frontdesk-dental.jpeg",
+      image: "/projects/frontdesk-dental_1.0.jpeg",
       description: "Created a 24/7 automated patient acquisition suite for a dental practice, combining lead capture forms, AI triage logic, and Calendly-based booking automation via n8n.",
       link: "https://frontdesk-dental-automated-patient.vercel.app",
       tech: ["n8n Integration", "AI Triage Logic", "Calendly API", "Lead Generation"]
@@ -677,26 +676,26 @@ const Portfolio = () => {
     : projects.filter(p => p.category === filter);
 
   return (
-    <section id="portfolio" className="py-32 relative bg-slate-950/40 border-t border-slate-900 dot-grid">
+    <section id="portfolio" className="py-32 relative bg-[#0a0a0a] border-t border-white/5 dot-grid">
       <div className="section-container">
         
         {/* Header Grid */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-10">
           <div className="max-w-2xl text-left">
-            <span className="text-brand-accent font-mono font-bold uppercase tracking-[0.25em] text-xs px-3 py-1.5 rounded-md bg-brand-accent/5 border border-brand-accent/10">
+            <span className="tag-etched">
               ENGINEERING ARCHIVES
             </span>
-            <h2 className="text-4xl sm:text-5xl font-extrabold text-white mt-5 tracking-tight font-display">
+            <h2 className="text-4xl sm:text-5xl font-extrabold text-white mt-5 tracking-tight font-display drop-shadow-md">
               Selected Works
             </h2>
           </div>
-          <p className="max-w-sm text-text-muted text-lg font-medium leading-relaxed text-left">
+          <p className="max-w-sm text-zinc-400 text-lg font-medium leading-relaxed text-left">
             A curated collection of highly robust applications, automated workflow engines, and cloud setups.
           </p>
         </div>
 
         {/* Interactive Filtering Tabs */}
-        <div className="flex flex-wrap gap-2.5 mb-12 border-b border-slate-900 pb-6 text-left">
+        <div className="flex flex-wrap gap-2.5 mb-12 border-b border-white/5 pb-6 text-left">
           {[
             { id: "all", label: "All Projects" },
             { id: "ai-web", label: "AI & Web Apps" },
@@ -707,10 +706,10 @@ const Portfolio = () => {
             <button
               key={tab.id}
               onClick={() => setFilter(tab.id)}
-              className={`px-5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider cursor-pointer border transition-all duration-300 ${
+              className={`px-5 py-2.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider cursor-pointer border transition-all duration-300 ${
                 filter === tab.id
-                  ? "bg-brand-primary border-brand-primary text-white shadow-lg shadow-brand-primary/15"
-                  : "bg-slate-900/60 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700"
+                  ? "bg-white text-black border-white shadow-[0_4px_12px_rgba(255,255,255,0.2)]"
+                  : "bg-black/40 border-white/10 text-zinc-400 hover:text-white hover:border-white/30"
               }`}
             >
               {tab.label}
@@ -732,53 +731,53 @@ const Portfolio = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4 }}
-                className="group flex flex-col bg-slate-900/40 border border-slate-800/80 rounded-[2rem] overflow-hidden hover:border-brand-primary/30 transition-all duration-500 shadow-xl cursor-pointer"
+                className="glass-3d-panel group flex flex-col overflow-hidden transition-all duration-500 cursor-pointer p-2"
                 onClick={() => project.link && window.open(project.link, '_blank')}
               >
                 {/* Visual Image container */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
+                <div className="relative aspect-[16/10] overflow-hidden bg-black rounded-2xl">
                   <img 
                     src={project.image} 
                     alt={project.title}
                     className="object-cover w-full h-full group-hover:scale-[1.03] transition-transform duration-[800ms] ease-out opacity-85 group-hover:opacity-100"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
                   
                   {project.link && (
-                    <div className="absolute top-6 right-6 w-11 h-11 bg-slate-950/90 border border-slate-800 rounded-xl flex items-center justify-center shadow-2xl translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                      <ExternalLink className="w-5 h-5 text-brand-primary" />
+                    <div className="absolute top-6 right-6 w-11 h-11 bg-black/90 border border-white/10 rounded-xl flex items-center justify-center shadow-2xl translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                      <ExternalLink className="w-5 h-5 text-white" />
                     </div>
                   )}
 
                   <div className="absolute bottom-6 left-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-primary text-white text-[9px] font-mono font-bold uppercase tracking-wider rounded-md">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-md text-white text-[9px] font-mono font-bold uppercase tracking-wider rounded-md border border-white/20">
                       View Case Study <ChevronRight className="w-3 h-3" />
                     </span>
                   </div>
                 </div>
 
                 {/* Description details */}
-                <div className="p-8 text-left flex-grow flex flex-col justify-between">
+                <div className="p-6 text-left flex-grow flex flex-col justify-between">
                   <div>
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-[10px] font-mono font-bold text-brand-accent uppercase tracking-widest">
+                      <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest">
                         {project.categoryLabel}
                       </span>
-                      <div className="h-px w-5 bg-slate-800" />
+                      <div className="h-px w-5 bg-white/10" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-3 tracking-tight group-hover:text-brand-primary transition-colors duration-300">
+                    <h3 className="text-2xl font-bold text-white mb-3 tracking-tight group-hover:text-zinc-200 transition-colors duration-300">
                       {project.title}
                     </h3>
-                    <p className="text-text-muted text-sm font-semibold leading-relaxed mb-6">
+                    <p className="text-zinc-400 text-sm font-semibold leading-relaxed mb-6">
                       {project.description}
                     </p>
                   </div>
 
                   {/* Badges */}
-                  <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-900/80">
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
                     {project.tech.map((t) => (
-                      <span key={t} className="text-[9px] font-mono font-semibold px-2 py-1 bg-slate-950/80 border border-slate-800/80 text-slate-500 rounded-md">
+                      <span key={t} className="text-[9px] font-mono font-semibold px-2 py-1 bg-black/40 border border-white/10 text-zinc-500 rounded-md">
                         {t}
                       </span>
                     ))}
@@ -841,30 +840,30 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="glass-panel p-6 sm:p-10 border-slate-800/80 shadow-[0_20px_50px_rgba(0,0,0,0.6)] mb-20 relative overflow-hidden">
+    <div className="glass-3d-panel p-6 sm:p-10 mb-20 relative overflow-hidden">
       
       <div className="grid lg:grid-cols-12 gap-12 items-start">
         {/* Left Col: Info details */}
         <div className="lg:col-span-5 text-left">
-          <span className="text-brand-primary font-mono font-bold uppercase tracking-[0.25em] text-xs px-3 py-1.5 rounded-md bg-brand-primary/5 border border-brand-primary/10">
+          <span className="tag-etched">
             CONNECT GATEWAY
           </span>
           <h3 className="text-3xl sm:text-4xl font-extrabold text-white mt-5 mb-4 tracking-tight font-display leading-tight">
             Let's build something <br />extraordinary.
           </h3>
-          <p className="text-text-muted text-sm sm:text-base font-semibold leading-relaxed mb-10 max-w-sm">
+          <p className="text-zinc-400 text-sm sm:text-base font-semibold leading-relaxed mb-10 max-w-sm">
             Ready to design or automate your systems? Connect with our engineering core to discuss custom solutions.
           </p>
 
           <div className="space-y-4">
-            <div className="flex items-center gap-4 text-xs sm:text-sm font-mono text-slate-300">
-              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-brand-primary">
+            <div className="flex items-center gap-4 text-xs sm:text-sm font-mono text-zinc-300">
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white">
                 <Mail className="w-4.5 h-4.5" />
               </div>
               systemshbn@gmail.com
             </div>
-            <div className="flex items-center gap-4 text-xs sm:text-sm font-mono text-slate-300">
-              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-brand-accent">
+            <div className="flex items-center gap-4 text-xs sm:text-sm font-mono text-zinc-300">
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400">
                 <Globe className="w-4.5 h-4.5" />
               </div>
               Lahore, Pakistan
@@ -874,7 +873,7 @@ const ContactForm = () => {
 
         {/* Right Col: Console Form */}
         <div className="lg:col-span-7 w-full">
-          <div className="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+          <div className="bg-black/60 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
             
             {/* Terminal Tab Bar */}
             <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-900 font-mono text-[10px] text-slate-500 select-none">
@@ -1017,8 +1016,8 @@ const ContactForm = () => {
 // 7. Footer
 // ==========================================
 const Footer = () => (
-  <footer id="contact" className="bg-slate-950 border-t border-slate-900 pt-28 pb-16 relative overflow-hidden">
-    <div className="absolute top-[80%] left-[50%] -translate-x-1/2 w-[350px] h-[150px] bg-brand-primary/5 rounded-full blur-[80px] pointer-events-none" />
+  <footer id="contact" className="bg-[#050505] border-t border-white/5 pt-28 pb-16 relative overflow-hidden">
+    <div className="absolute top-[80%] left-[50%] -translate-x-1/2 w-[350px] h-[150px] bg-white/5 rounded-full blur-[80px] pointer-events-none" />
     
     <div className="max-w-[1200px] mx-auto px-6">
       
@@ -1031,7 +1030,7 @@ const Footer = () => (
           <div className="mb-8">
             <Logo />
           </div>
-          <p className="text-text-muted max-w-sm leading-relaxed mb-8 font-semibold text-sm">
+          <p className="text-zinc-400 max-w-sm leading-relaxed mb-8 font-semibold text-sm">
             Engineering high-performance enterprise engines. We design, build, and optimize 
             digital frameworks for ambitious scaling organizations.
           </p>
@@ -1047,7 +1046,7 @@ const Footer = () => (
                 href={href} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="w-10 h-10 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-600 transition-all duration-300"
+                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:border-white/30 transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
                 title={label}
               >
                 <Icon className="w-4.5 h-4.5" />
@@ -1058,7 +1057,7 @@ const Footer = () => (
         
         <div>
           <h5 className="text-white font-bold text-xs uppercase tracking-wider mb-6 font-mono">Solutions</h5>
-          <ul className="space-y-4 text-xs font-semibold text-text-muted">
+          <ul className="space-y-4 text-xs font-semibold text-zinc-400">
             <li><a href="#expertise" className="hover:text-white transition-colors duration-300">AI Integration</a></li>
             <li><a href="#expertise" className="hover:text-white transition-colors duration-300">Workflow Engines</a></li>
             <li><a href="#expertise" className="hover:text-white transition-colors duration-300">Smart Edge IoT</a></li>
@@ -1068,7 +1067,7 @@ const Footer = () => (
 
         <div>
           <h5 className="text-white font-bold text-xs uppercase tracking-wider mb-6 font-mono">Studio</h5>
-          <ul className="space-y-4 text-xs font-semibold text-text-muted">
+          <ul className="space-y-4 text-xs font-semibold text-zinc-400">
             <li><a href="#philosophy" className="hover:text-white transition-colors duration-300">Methodology</a></li>
             <li><a href="#portfolio" className="hover:text-white transition-colors duration-300">Selected Works</a></li>
             <li><a href="#portfolio" className="hover:text-white transition-colors duration-300">The Sandbox</a></li>
@@ -1078,7 +1077,7 @@ const Footer = () => (
 
         <div>
           <h5 className="text-white font-bold text-xs uppercase tracking-wider mb-6 font-mono">Security</h5>
-          <ul className="space-y-4 text-xs font-semibold text-text-muted">
+          <ul className="space-y-4 text-xs font-semibold text-zinc-400">
             <li><a href="#" className="hover:text-white transition-colors duration-300">Privacy Protocols</a></li>
             <li><a href="#" className="hover:text-white transition-colors duration-300">System Logs</a></li>
             <li><a href="#" className="hover:text-white transition-colors duration-300">Security SLA</a></li>
@@ -1087,17 +1086,17 @@ const Footer = () => (
       </div>
       
       {/* Sub Footer details */}
-      <div className="flex flex-col md:flex-row items-center justify-between pt-10 border-t border-slate-900 font-mono text-[10px] text-slate-500 tracking-wider">
+      <div className="flex flex-col md:flex-row items-center justify-between pt-10 border-t border-white/5 font-mono text-[10px] text-zinc-500 tracking-wider">
         <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 font-bold uppercase">
           <span>© 2026 Hammad Bin Nasir Group</span>
-          <span className="hidden md:block w-1.5 h-1.5 bg-slate-800 rounded-full" />
+          <span className="hidden md:block w-1.5 h-1.5 bg-zinc-800 rounded-full" />
           <span>All Rights Reserved.</span>
         </div>
         
         <div className="mt-6 md:mt-0 flex items-center gap-6 font-bold uppercase">
-          <span className="flex items-center gap-2 text-brand-emerald">
-            <span className="w-2.5 h-2.5 bg-brand-emerald/10 border border-brand-emerald/30 rounded-full flex items-center justify-center">
-              <span className="w-1.5 h-1.5 bg-brand-emerald rounded-full animate-pulse" />
+          <span className="flex items-center gap-2 text-zinc-400">
+            <span className="w-2.5 h-2.5 bg-white/10 border border-white/20 rounded-full flex items-center justify-center">
+              <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
             </span>
             SYSTEMS OPERATIONAL [14ms]
           </span>
@@ -1114,7 +1113,7 @@ const Footer = () => (
 // ==========================================
 export default function App() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-brand-primary/20 select-none">
+    <div className="min-h-screen bg-[#050505] text-white flex flex-col justify-between selection:bg-white/20 select-none">
       <Navbar />
       <main className="flex-grow">
         <Hero />
