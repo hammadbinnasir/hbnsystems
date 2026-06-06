@@ -620,7 +620,7 @@ const Portfolio = () => {
       title: "SmartLib Pro",
       category: "ai-web",
       categoryLabel: "Library Management / AI Chatbot",
-      image: "/projects/smartlib.png",
+      image: "/projects/smartlib.jpeg",
       description: "Engineered a professional library management system featuring a custom Gemini AI chatbot for intelligent catalogue assistance and an automated reservation queue for optimized inventory circulation.",
       link: "https://smart-library-ten.vercel.app",
       tech: ["React", "Gemini API", "Intelligent Chatbot", "Queue Management"]
@@ -638,7 +638,7 @@ const Portfolio = () => {
       title: "FrontDesk Dental",
       category: "automation",
       categoryLabel: "Workflow Automation / AI",
-      image: "/projects/frontdesk-dental.png",
+      image: "/projects/frontdesk-dental.jpeg",
       description: "Created a 24/7 automated patient acquisition suite for a dental practice, combining lead capture forms, AI triage logic, and Calendly-based booking automation via n8n.",
       link: "https://frontdesk-dental-automated-patient.vercel.app",
       tech: ["n8n Integration", "AI Triage Logic", "Calendly API", "Lead Generation"]
