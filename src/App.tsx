@@ -647,7 +647,7 @@ const Portfolio = () => {
       title: "LuxeEstate",
       category: "ai-web",
       categoryLabel: "AI Real Estate Platform",
-      image: "/projects/luxeestate.png",
+      image: "/projects/luxeestate.jpeg",
       description: "Deployed a high-performance Next.js platform optimised for niche real-estate lead generation, with integrated AI qualification workflows.",
       link: "https://luxeestate-green.vercel.app",
       tech: ["Next.js", "AI Qualification", "Lead Generation", "Niche Real Estate"]
@@ -656,7 +656,7 @@ const Portfolio = () => {
       title: "FlowState Plumbing",
       category: "ai-web",
       categoryLabel: "Gemini Vision Diagnostics",
-      image: "/projects/flowstate.png",
+      image: "/projects/flowstate.jpeg",
       description: "Developed an AI-powered diagnostic tool using Gemini Vision to provide instant plumbing repair assessments and cost estimations from user photos or descriptions.",
       link: "https://flowstate-plumbing-pro.vercel.app",
       tech: ["Gemini Vision", "AI Diagnostic Tool", "Cost Estimations", "Image Processing"]
