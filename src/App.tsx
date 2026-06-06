@@ -590,38 +590,85 @@ const Portfolio = () => {
 
   const projects = [
     {
-      title: "Meeran Enterprises",
+      title: "Raza Meeran Enterprises",
       category: "infrastructure",
-      categoryLabel: "Infrastructure",
+      categoryLabel: "B2B Industrial Platform",
       image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
-      description: "Digital transformation and enterprise cloud infrastructure engineering scaling to support global customer pipelines.",
-      link: "https://www.meeranenterprises.com/",
-      tech: ["Cloud Architecture", "Ecosystem Sync", "Docker"]
+      description: "Designed and deployed a premium B2B platform for industrial safety gear, currently in active use by the client. Features dynamic product discovery and automated distributor inquiry workflows.",
+      link: "https://meeranenterprises.com",
+      tech: ["B2B Platform", "Distributor Workflows", "Product Discovery", "Cloud Hosting"]
     },
     {
-      title: "Raza Meeran Billing",
+      title: "Raza Meeran Billing System",
       category: "fintech",
-      categoryLabel: "FinTech / Automation",
+      categoryLabel: "Billing / Automation",
       image: "/projects/raza-meeran.png",
-      description: "Autonomous financial accounting and automated billing matrix designed for high-concurrency logistics.",
-      link: "https://raza-meeran-billing-system.vercel.app/",
-      tech: ["React.js", "Express API", "PostgreSQL"]
+      description: "Built a custom React billing system currently in daily use by the client. Automated Google Sheets integration and dynamic document generation for enterprise invoicing workflows.",
+      link: "https://raza-meeran-billing-system.vercel.app",
+      tech: ["React.js", "Google Sheets API", "Document Generation", "Invoicing Workflows"]
+    },
+    {
+      title: "Cosmicmind",
+      category: "ai-web",
+      categoryLabel: "AI Multi-Agent System",
+      image: "/projects/cosmicmind.png",
+      description: "Engineered a simulated astrophysics research engine powered by a multi-agent system of 7 specialized AI agents to automate spectral analysis, anomaly detection, and telescope coordinate generation.",
+      link: "https://cosmicmind.vercel.app",
+      tech: ["Next.js", "Multi-Agent System", "AI Reasoning", "Data Visualization"]
+    },
+    {
+      title: "SmartLib Pro",
+      category: "ai-web",
+      categoryLabel: "Library Management / AI Chatbot",
+      image: "/projects/smartlib.png",
+      description: "Engineered a professional library management system featuring a custom Gemini AI chatbot for intelligent catalogue assistance and an automated reservation queue for optimized inventory circulation.",
+      link: "https://smart-library-ten.vercel.app",
+      tech: ["React", "Gemini API", "Intelligent Chatbot", "Queue Management"]
     },
     {
       title: "BidMagnet AI",
       category: "ai-web",
-      categoryLabel: "AI & Web Application",
+      categoryLabel: "AI Proposal Architect",
       image: "/projects/bidmagnet.png",
-      description: "High-frequency automated bidding engine powered by predictive neural models and Gemini context analysis.",
-      tech: ["Next.js", "Gemini API", "Python Worker"]
+      description: "Engineered an AI SaaS tool using Next.js + Gemini to generate professional business bids instantly. Integrated structured LLM output handling and a polished proposal UI.",
+      link: "https://bidmagnet-nine.vercel.app",
+      tech: ["Next.js", "Gemini API", "Structured Outputs", "SaaS Proposal UI"]
     },
     {
-      title: "FlowState ERP",
+      title: "FrontDesk Dental",
       category: "automation",
-      categoryLabel: "Workflow Automation",
+      categoryLabel: "Workflow Automation / AI",
+      image: "/projects/frontdesk-dental.png",
+      description: "Created a 24/7 automated patient acquisition suite for a dental practice, combining lead capture forms, AI triage logic, and Calendly-based booking automation via n8n.",
+      link: "https://frontdesk-dental-automated-patient.vercel.app",
+      tech: ["n8n Integration", "AI Triage Logic", "Calendly API", "Lead Generation"]
+    },
+    {
+      title: "LuxeEstate",
+      category: "ai-web",
+      categoryLabel: "AI Real Estate Platform",
+      image: "/projects/luxeestate.png",
+      description: "Deployed a high-performance Next.js platform optimised for niche real-estate lead generation, with integrated AI qualification workflows.",
+      link: "https://luxeestate-green.vercel.app",
+      tech: ["Next.js", "AI Qualification", "Lead Generation", "Niche Real Estate"]
+    },
+    {
+      title: "FlowState Plumbing",
+      category: "ai-web",
+      categoryLabel: "Gemini Vision Diagnostics",
       image: "/projects/flowstate.png",
-      description: "Custom dispatch ERP integrating automated fleet scheduling, customer notifications, and resource matching.",
-      tech: ["n8n", "Node-RED", "OAuth / API Integrations"]
+      description: "Developed an AI-powered diagnostic tool using Gemini Vision to provide instant plumbing repair assessments and cost estimations from user photos or descriptions.",
+      link: "https://flowstate-plumbing-pro.vercel.app",
+      tech: ["Gemini Vision", "AI Diagnostic Tool", "Cost Estimations", "Image Processing"]
+    },
+    {
+      title: "Automation Systems",
+      category: "automation",
+      categoryLabel: "Ecosystem Automation",
+      image: "/projects/automation-systems.png",
+      description: "Built autonomous lead qualification agents using n8n + OpenAI + Calendly. Engineered zero-touch content pipelines to aggregate, summarize, and deliver weather/news email briefings.",
+      link: "https://github.com/hammadbinnasir",
+      tech: ["n8n", "OpenAI API", "Calendly API", "Zero-Touch Content Pipeline"]
     }
   ];
 
