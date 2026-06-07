@@ -597,15 +597,7 @@ const Portfolio = () => {
       link: "https://meeranenterprises.com",
       tech: ["B2B Platform", "Distributor Workflows", "Product Discovery", "Cloud Hosting"]
     },
-    {
-      title: "Raza Meeran Billing System",
-      category: "fintech",
-      categoryLabel: "Billing / Automation",
-      image: "/projects/raza-meeran.png",
-      description: "Built a custom React billing system currently in daily use by the client. Automated Google Sheets integration and dynamic document generation for enterprise invoicing workflows.",
-      link: "https://raza-meeran-billing-system.vercel.app",
-      tech: ["React.js", "Google Sheets API", "Document Generation", "Invoicing Workflows"]
-    },
+
     {
       title: "Cosmicmind",
       category: "ai-web",
@@ -1078,7 +1070,7 @@ const Footer = () => (
       {/* Sub Footer details */}
       <div className="flex flex-col md:flex-row items-center justify-between pt-10 border-t border-white/5 font-mono text-[10px] text-zinc-500 tracking-wider">
         <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 font-bold uppercase">
-          <span>© 2026 Hammad Bin Nasir Group</span>
+          <span>© 2026 HBN SYSTEMS</span>
           <span className="hidden md:block w-1.5 h-1.5 bg-zinc-800 rounded-full" />
           <span>All Rights Reserved.</span>
         </div>
