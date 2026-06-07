@@ -875,15 +875,11 @@ const ContactForm = () => {
         <div className="lg:col-span-7 w-full">
           <div className="bg-black/60 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
             
-            {/* Terminal Tab Bar */}
-            <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-900 font-mono text-[10px] text-slate-500 select-none">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-800" />
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-800" />
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-800" />
-              </div>
-              <span className="text-slate-400 font-bold flex items-center gap-1">
-                <Code2 className="w-3.5 h-3.5 text-brand-primary" /> console.contact(hbn_systems)
+            {/* Tab Bar */}
+            <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/5 text-[10px] text-zinc-500 select-none uppercase tracking-widest font-bold">
+              <span>Direct Inquiry Form</span>
+              <span className="text-zinc-400 flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-white" /> Secure Transmission
               </span>
             </div>
 
@@ -896,36 +892,35 @@ const ContactForm = () => {
                   exit={{ opacity: 0, scale: 0.95 }}
                   className="flex flex-col items-center justify-center text-center py-8 min-h-[300px]"
                 >
-                  <div className="w-14 h-14 bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/20 rounded-2xl flex items-center justify-center mb-5">
+                  <div className="w-14 h-14 bg-white/10 text-white border border-white/20 rounded-2xl flex items-center justify-center mb-5">
                     <CheckCircle2 className="w-7 h-7" />
                   </div>
-                  <h4 className="text-xl font-bold text-white mb-2 font-display">Connection Transmitted!</h4>
-                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 max-w-sm mb-8 font-mono text-xs text-left text-slate-400 space-y-1">
-                    <p className="text-brand-emerald">[SUCCESS] Transmit OK.</p>
-                    <p>[LOG] Telemetry payload saved.</p>
-                    <p>[LOG] Response SLA: 4 business hours.</p>
+                  <h4 className="text-xl font-bold text-white mb-2 font-display">Message Sent!</h4>
+                  <div className="bg-white/5 border border-white/10 rounded-xl p-4 max-w-sm mb-8 font-mono text-xs text-left text-zinc-400 space-y-1">
+                    <p className="text-white">Success.</p>
+                    <p>Your inquiry has been received.</p>
+                    <p>We'll respond within 4 business hours.</p>
                   </div>
                   <button 
                     onClick={() => setStatus('idle')}
-                    className="btn-secondary px-6 py-2.5 text-xs font-mono font-bold"
+                    className="btn-secondary px-6 py-2.5 text-xs font-mono font-bold text-white"
                   >
-                    Reset Console Connection
+                    Send Another Message
                   </button>
                 </motion.div>
               ) : (
                 <form 
                   key="form"
                   onSubmit={handleSubmit}
-                  className="space-y-5 text-left font-mono text-xs"
+                  className="space-y-5 text-left text-sm"
                 >
                   {/* Row 1 */}
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1">
-                        <span>var</span> name =
+                      <label className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider flex items-center gap-1">
+                        Full Name
                       </label>
-                      <div className={`flex items-center border rounded-xl bg-slate-900/60 transition-all duration-300 ${focusedField === 'name' ? 'border-brand-primary shadow-[0_0_15px_rgba(59,130,246,0.1)]' : 'border-slate-800/80'}`}>
-                        <span className="pl-4 pr-1 text-slate-500 select-none">"</span>
+                      <div className={`flex items-center border rounded-xl bg-white/5 transition-all duration-300 ${focusedField === 'name' ? 'border-white/30 shadow-[0_0_15px_rgba(255,255,255,0.1)]' : 'border-white/10'}`}>
                         <input 
                           required
                           name="name"
@@ -933,18 +928,16 @@ const ContactForm = () => {
                           placeholder="John Doe"
                           onFocus={() => setFocusedField('name')}
                           onBlur={() => setFocusedField(null)}
-                          className="w-full bg-transparent px-1 py-3 text-slate-200 placeholder-slate-600 focus:outline-none font-mono"
+                          className="w-full bg-transparent px-4 py-3 text-white placeholder-zinc-600 focus:outline-none font-medium"
                         />
-                        <span className="pr-4 pl-1 text-slate-500 select-none">";</span>
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1">
-                        <span>var</span> email =
+                      <label className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider flex items-center gap-1">
+                        Email Address
                       </label>
-                      <div className={`flex items-center border rounded-xl bg-slate-900/60 transition-all duration-300 ${focusedField === 'email' ? 'border-brand-primary shadow-[0_0_15px_rgba(59,130,246,0.1)]' : 'border-slate-800/80'}`}>
-                        <span className="pl-4 pr-1 text-slate-500 select-none">"</span>
+                      <div className={`flex items-center border rounded-xl bg-white/5 transition-all duration-300 ${focusedField === 'email' ? 'border-white/30 shadow-[0_0_15px_rgba(255,255,255,0.1)]' : 'border-white/10'}`}>
                         <input 
                           required
                           name="email"
@@ -952,20 +945,18 @@ const ContactForm = () => {
                           placeholder="john@example.com"
                           onFocus={() => setFocusedField('email')}
                           onBlur={() => setFocusedField(null)}
-                          className="w-full bg-transparent px-1 py-3 text-slate-200 placeholder-slate-600 focus:outline-none font-mono"
+                          className="w-full bg-transparent px-4 py-3 text-white placeholder-zinc-600 focus:outline-none font-medium"
                         />
-                        <span className="pr-4 pl-1 text-slate-500 select-none">";</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Message field */}
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider flex items-center gap-1">
-                      <span>var</span> queryDetails =
+                    <label className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider flex items-center gap-1">
+                      Project Requirements
                     </label>
-                    <div className={`flex items-start border rounded-xl bg-slate-900/60 transition-all duration-300 ${focusedField === 'message' ? 'border-brand-primary shadow-[0_0_15px_rgba(59,130,246,0.1)]' : 'border-slate-800/80'}`}>
-                      <span className="pl-4 pt-3.5 pr-1 text-slate-500 select-none">`</span>
+                    <div className={`flex items-start border rounded-xl bg-white/5 transition-all duration-300 ${focusedField === 'message' ? 'border-white/30 shadow-[0_0_15px_rgba(255,255,255,0.1)]' : 'border-white/10'}`}>
                       <textarea 
                         required
                         name="message"
@@ -973,9 +964,8 @@ const ContactForm = () => {
                         placeholder="Define your optimization project requirements..."
                         onFocus={() => setFocusedField('message')}
                         onBlur={() => setFocusedField(null)}
-                        className="w-full bg-transparent px-1 py-3 text-slate-200 placeholder-slate-600 focus:outline-none font-mono resize-none"
+                        className="w-full bg-transparent px-4 py-3 text-white placeholder-zinc-600 focus:outline-none font-medium resize-none"
                       />
-                      <span className="pr-4 pt-3.5 pl-1 self-end text-slate-500 select-none">`;</span>
                     </div>
                   </div>
 
@@ -983,7 +973,7 @@ const ContactForm = () => {
                   <button 
                     type="submit"
                     disabled={status === 'loading'}
-                    className="w-full bg-gradient-to-r from-brand-primary to-brand-accent text-white py-4 rounded-xl font-bold tracking-tight shadow-md shadow-brand-primary/15 hover:shadow-lg hover:shadow-brand-primary/25 cursor-pointer hover:-translate-y-[1px] active:translate-y-0 disabled:opacity-75 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 mt-4"
+                    className="w-full bg-white text-black py-4 rounded-xl font-bold tracking-tight shadow-md shadow-white/10 hover:shadow-lg hover:shadow-white/20 hover:bg-zinc-200 cursor-pointer hover:-translate-y-[1px] active:translate-y-0 disabled:opacity-75 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 mt-4"
                   >
                     {status === 'loading' ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
